@@ -1,5 +1,3 @@
 <resources>
-    <string name="app_name">Redes Sociales: MediPet</string>
-    <string name="open_nav">Abrir cajon de navegacion</string>
-    <string name="close_nav">Cerrar cajon de navegacion</string>
+    <string name="app_name">MediPet</string>
 </resources>
