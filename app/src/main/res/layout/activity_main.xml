@@ -380,7 +380,7 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/img_ajustes"
+                        android:id="@+id/img_citas"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_gravity="center"
