@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">MediPet</string>
+
+    <string-array name="sucursales_nombre_txt">
+        <item>Trotsky</item>
+        <item>Vitavet</item>
+        <item>Patitas Felices</item>
+        <item>Huella Vital</item>
+        <item>Amor Animal</item>
+    </string-array>
+
+    <string-array name="sucursales_direccion_txt">
+        <item>...</item>
+        <item>...</item>
+        <item>...</item>
+        <item>...</item>
+        <item>...</item>
+    </string-array>
+
+    <string-array name="sucursales_horario_txt">
+        <item>...</item>
+        <item>...</item>
+        <item>...</item>
+        <item>...</item>
+        <item>...</item>
+    </string-array>
+
 </resources>
