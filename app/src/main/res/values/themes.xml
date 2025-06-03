@@ -18,5 +18,6 @@
         <item name="android:windowEnterAnimation">@anim/slide_in</item>
         <item name="android:windowExitAnimation">@anim/slide_out</item>
     </style>
+
     <style name="Theme.MediPet" parent="Base.Theme.MediPet" />
 </resources>

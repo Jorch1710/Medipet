@@ -13,6 +13,23 @@
         android:theme="@style/Theme.MediPet"
         tools:targetApi="31">
         <activity
+            android:name=".MainActivityDA"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity2DA"
+            android:exported="false" />
+        <activity
+            android:name=".NoMover"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivityKJ"
+            android:exported="false" />
+        <activity
+            android:name=".activity_sucursales"
+            android:exported="false" />
+        <activity android:name=".FormPerroKJ"
+            android:exported="false"/>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

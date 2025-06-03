@@ -21,7 +21,13 @@ public class AA_RecyclerViewAdapterSucursales extends RecyclerView.Adapter<AA_Re
         this.context=context;
         this.sucursalesModels=sucursalesModels;
     }
+/*
+    public AA_RecyclerViewAdapterSucursales(com.example.medipet.activity_sucursales context, ArrayList<com.example.medipet.SucursalesModel> sucursalesModels) {
+    }
 
+    public AA_RecyclerViewAdapterSucursales(com.example.medipet.activity_sucursales activitySucursales, ArrayList<com.example.medipet.SucursalesModel> sucursalesModels) {
+    }
+*/
     @NonNull
     @Override
     public AA_RecyclerViewAdapterSucursales.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
