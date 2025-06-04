@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Cat_fragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            tools:ignore="ExtraText">
+
+            <!-- Sección de Artículo Principal -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="El Misterioso Mundo de tu Gatito"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:layout_marginBottom="8dp"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:src="@drawable/perro3"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="Imagen de un gatito curioso"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Los gatos son criaturas fascinantes con necesidades únicas. Desde su alimentación hasta su enriquecimiento ambiental, entender a tu felino es clave para una convivencia feliz. Asegúrate de proporcionarle un espacio seguro, rascadores, y estimulación mental."
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:lineSpacingMultiplier="1.2"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Sección de Artículos Secundarios -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="8dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="130dp"
+                        android:src="@drawable/gato1"
+                    android:scaleType="centerCrop"
+                    android:layout_marginBottom="4dp"
+                    android:contentDescription="Gato jugando con un juguete de plumas"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Juego y Enriquecimiento"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:layout_marginBottom="4dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="El juego diario es vital para los instintos cazadores de tu gato. Proporciona juguetes variados y dedica tiempo a interactuar con él."
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:maxLines="4"
+                        android:ellipsize="end"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="8dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="130dp"
+                        android:src="@drawable/gato2"
+                    android:scaleType="centerCrop"
+                    android:layout_marginBottom="4dp"
+                    android:contentDescription="Plato de comida húmeda para gatos"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Nutrición Felina Adecuada"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:layout_marginBottom="4dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Los gatos son carnívoros estrictos. Su dieta debe ser rica en proteínas animales. Consulta a tu veterinario sobre la mejor opción (pienso, comida húmeda o mixta)."
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:maxLines="4"
+                        android:ellipsize="end"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Sección de Consejos Rápidos -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Checklist de Bienestar Felino"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Agua fresca y limpia siempre disponible (lejos de la comida y el arenero).\n• Arenero limpio y accesible (uno por gato + uno extra).\n• Rascadores verticales y horizontales.\n• Lugares altos para observar y descansar.\n• Visitas regulares al veterinario (vacunas, desparasitación)."
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:lineSpacingMultiplier="1.3"/>
+
+            <!-- Puedes añadir más secciones aquí, por ejemplo: -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Comportamiento Felino: ¿Qué significa?"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:src="@drawable/gato4"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="Infografía sobre lenguaje corporal felino"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Aprender a interpretar el lenguaje corporal de tu gato (posición de las orejas, cola, maullidos) te ayudará a entender sus necesidades y fortalecer vuestro vínculo. El ronroneo no siempre significa felicidad, ¡investiga más!"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:lineSpacingMultiplier="1.2"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

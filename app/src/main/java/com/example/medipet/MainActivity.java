@@ -30,12 +30,12 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        btnIngresar = findViewById(R.id.btncambio);
+        btnIngresar = (Button) findViewById(R.id.btncambio);
         btnIngresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //AQUIIIIIIII CAMBIEN LA ACTIVITY--------------------------->AQUI
-                Intent intent = new Intent(MainActivity.this,FormPerroKJ.class);
+                Intent intent = new Intent(MainActivity.this,MainActivity2DA.class);
                 startActivity(intent);
             }
         });
