@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -8,168 +9,197 @@
     android:background="@drawable/backdog"
     tools:context=".MainActivityDA">
 
-    <!-- Capa semitransparente -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black"
-        android:alpha="0.4" />
+    <!-- Overlay semitransparente -->
+    <View
+        android:id="@+id/overlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#99000000"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Título superior -->
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <!-- Título -->
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/titleText"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:text="INICIAR SESION"
+        android:textColor="@android:color/white"
+        android:textSize="38sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
+        android:letterSpacing="0.05"
         android:gravity="center"
-        android:orientation="vertical"
-        android:padding="10dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="32dp">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/card"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="24dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="COMENCEMOS"
-            android:textColor="@color/white"
-            android:textSize="36sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <!-- Card centrada en pantalla -->
-    <androidx.cardview.widget.CardView
+    <!-- CardView central -->
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
-        android:alpha="0.95"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_centerInParent="true"
-        app:cardElevation="20dp"
-        app:cardCornerRadius="28dp">
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="12dp"
+        app:layout_constraintTop_toBottomOf="@id/titleText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="@android:color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="24dp">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/welcomeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="BIENVENIDO"
-                android:layout_gravity="center"
-                android:fontFamily="sans-serif-black"
+                android:textColor="#1523A0"
+                android:textSize="28sp"
                 android:textStyle="bold"
-                android:textColor="#03A9F4"
-                android:textSize="28sp" />
+                android:fontFamily="sans-serif-black"
+                android:layout_gravity="center"
+                android:letterSpacing="0.03"/>
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:text="Ingrese sus datos"
-                android:alpha="0.8" />
+                android:textColor="#555555"
+                android:layout_gravity="center"
+                android:alpha="0.8"
+                android:layout_marginTop="4dp"
+                android:textSize="14sp" />
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="20dp" />
+                android:layout_height="24dp" />
 
-            <!-- Campo Correo -->
-            <TextView
+            <!-- Email -->
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Correo Electrónico"
+                android:textColor="#333333"
                 android:textStyle="bold"
-                android:alpha="0.8" />
+                android:textSize="14sp"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="usuario@gmail.com"
-                app:startIconTint="#03A9F4"
                 app:startIconDrawable="@drawable/mail"
-                app:endIconMode="clear_text">
+                app:startIconTint="#1523A0"
+                app:endIconMode="clear_text"
+                android:layout_marginTop="8dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txtmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    android:textColor="#212121"
+                    android:textSize="16sp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="16dp" />
 
-            <!-- Campo Contraseña -->
-            <TextView
+            <!-- Password -->
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Contraseña"
+                android:textColor="#333333"
                 android:textStyle="bold"
-                android:alpha="0.8" />
+                android:textSize="14sp"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:startIconTint="#03A9F4"
                 app:startIconDrawable="@drawable/lock"
-                app:endIconMode="password_toggle">
+                app:startIconTint="#1523A0"
+                app:endIconMode="password_toggle"
+                android:layout_marginTop="8dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txtpass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
+                    android:textColor="#212121"
+                    android:textSize="16sp"
                     tools:ignore="SpeakableTextPresentCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Texto Olvidaste tu contraseña -->
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <!-- Olvidaste contraseña -->
+            <TextView
+                android:id="@+id/forgotPass"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="¿Olvidaste tu contraseña?"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true" />
-            </RelativeLayout>
+                android:layout_gravity="end"
+                android:layout_marginTop="12dp"
+                android:alpha="0.85"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="¿Olvidaste tu contraseña?"
+                android:textColor="#555555"
+                android:textSize="14sp"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <!-- Botón Ingresar -->
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCreate"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="24dp"
                 android:text="Ingresar"
-                android:alpha="@integer/material_motion_duration_long_1"
-                android:backgroundTint="#03A9F4"
-                android:textSize="20sp"
-                app:cornerRadius="12dp" />
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#1523A0"
+                app:cornerRadius="16dp"
+                app:iconPadding="8dp"
+                android:elevation="6dp"/>
 
-            <!-- Texto y botón de registro -->
+            <!-- Texto registro -->
             <TextView
                 android:id="@+id/txtcambio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_gravity="center"
-                android:alpha="0.7"
                 android:text="¿No tienes cuenta? Regístrate"
-                android:textStyle="bold" />
+                android:textColor="#777777"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:textSize="14sp"/>
 
-            <Button
+            <!-- Botón Registro -->
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnregistro"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:backgroundTint="#233BC5"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
                 android:text="Registrarse"
-                android:textSize="20sp"
-                app:cornerRadius="12dp" />
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#1523A0"
+                app:cornerRadius="16dp"
+                android:elevation="6dp"/>
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
-</RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

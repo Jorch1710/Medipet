@@ -1,5 +1,7 @@
 package com.example.medipet;
 
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,7 +10,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-
+/*
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,13 +21,13 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.HashMap;
 import java.util.Map;
-
-public class MainActivity2DA extends AppCompatActivity implements View.OnClickListener {
+*/
+public class MainActivity2DA extends AppCompatActivity/* implements View.OnClickListener */{
     EditText txtNom, txtApe, txtMail, txtTel, txtPass;
     Button btnCreate;
-    RequestQueue requestQueue;
-
-    private static final String URL2 = "http://192.168.0.7/android/saves.php";
+    /*RequestQueue requestQueue;*/
+    /*
+    private static final String URL1 = "http://192.168.0.6/android/saves.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,11 +68,14 @@ public class MainActivity2DA extends AppCompatActivity implements View.OnClickLi
     private void createUser(final String nombre, final String apellido, final String telefono, final String email, final String pass) {
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
-                URL2,
+                URL1,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Toast.makeText(MainActivity2DA.this, "Usuario creado correctamente", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity2DA.this, MainActivityDA.class);
+                        startActivity(intent);
+                        finish();
                     }
                 },
                 new Response.ErrorListener() {
@@ -92,5 +97,8 @@ public class MainActivity2DA extends AppCompatActivity implements View.OnClickLi
             }
         };
         requestQueue.add(stringRequest);
-    }
+
+
+    }*/
+
 }
