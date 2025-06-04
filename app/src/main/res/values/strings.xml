@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">MediPet</string>
-    <string name="open_nav">Open Navigation Drawer</string>
-    <string name="close_nav">Close Navigation Drawer</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -44,6 +42,29 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="sucursales_nombre_txt">
+        <item>Trotsky</item>
+        <item>Vitavet</item>
+        <item>Patitas Felices</item>
+        <item>Huella Vital</item>
+        <item>Amor Animal</item>
+    </string-array>
+
+    <string-array name="sucursales_direccion_txt">
+        <item>Dirección: Del valle 37, Cofradía de San Miguel, 54715, Cuautitlán Izcalli, Méx.</item>
+        <item>Dirección: Av Constitución Manzana 034, Centro Urbano, 54700, Cuautitlán Izcalli, Méx.</item>
+        <item>Dirección: Av. Tianguistengo 76-B, Cumbria, 54740, Cuautitlán Izcalli, Méx.</item>
+        <item>Dirección: Del valle 37, Cofradía de San Miguel, 54715, Cuautitlán Izcalli, Méx.</item>
+        <item>Dirección: San Martín, Tepojaco, 54720, Cuautitlán Izcalli, Méx.</item>
+    </string-array>
+
+    <string-array name="sucursales_horario_txt">
+        <item>Horario: Abierto desde las 10:00 - Cierra a las 20:00</item>
+        <item>Horario: Abierto las 24 horas</item>
+        <item>Horario: Abierto desde las - Cierra a las 20:00</item>
+        <item>Horario: Abierto desde las - Cierra a las 20:00</item>
+        <item>Horario: Abierto desde las 13:00 - Cierra a las 20:00</item>
+    </string-array>
+
 </resources>
