@@ -13,9 +13,6 @@ import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.Calendar;
 
@@ -23,7 +20,7 @@ public class FormPerroKJ extends AppCompatActivity {
 
     EditText txt_fecha;
     Button btn_fecha;
-    ImageView foto;
+    Button foto;
     ImageView visor;
 
     private int dia, mes, anio;
@@ -36,8 +33,8 @@ public class FormPerroKJ extends AppCompatActivity {
 
         txt_fecha = (EditText) findViewById(R.id.txt_fecha);
         btn_fecha = (Button) findViewById(R.id.btn_fecha);
-        visor = (ImageView) findViewById(R.id.visor);
-        foto = (ImageView) findViewById(R.id.image_foto);
+        visor = (ImageView) findViewById(R.id.iv_visor);
+        foto = (Button) findViewById(R.id.btn_cam);
         btn_fecha.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick (View v){
@@ -72,11 +69,11 @@ public class FormPerroKJ extends AppCompatActivity {
     private void camara() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(intent, 0);
+            startActivityForResult(intent, 1);
         }
     }
 
-    protected void onActivityResul(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
