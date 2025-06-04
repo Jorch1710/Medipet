@@ -26,4 +26,12 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/img_mas"
         app:layout_constraintStart_toEndOf="@+id/img_mas" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="305dp"
+        android:layout_height="601dp"
+        app:srcCompat="@drawable/gato_icon"
+        tools:layout_editor_absoluteX="76dp"
+        tools:layout_editor_absoluteY="151dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
