@@ -81,8 +81,8 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
             navigationView.setNavigationItemSelectedListener(this);
         }
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav,
-                R.string.close_nav);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.first_fragment_label,
+                R.string.second_fragment_label);
         if (drawerLayout != null) {
             drawerLayout.addDrawerListener(toggle);
         }
@@ -158,15 +158,6 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
         } else {
             super.onBackPressed();
         }
-
-
-
-
-
-
-
-
-
 
     }
 }
