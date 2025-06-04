@@ -1,7 +1,7 @@
 package com.example.medipet;
 
 import android.os.Bundle;
-
+import android.content.Intent;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class activity_sucursales extends AppCompatActivity {
-/*
+public class activity_sucursales extends AppCompatActivity implements RecyclerViewInterfaceSucursales{
+
     ArrayList<SucursalesModel> sucursalesModels = new ArrayList<>();
 
     int[] sucursalImagenes = {R.drawable.icon_trotsky, R.drawable.icon_vitavet, R.drawable.icon_patitasfelices,
@@ -30,7 +30,7 @@ public class activity_sucursales extends AppCompatActivity {
         setUpSucursalModels();
 
         AA_RecyclerViewAdapterSucursales adapter = new AA_RecyclerViewAdapterSucursales(this,
-                sucursalesModels);
+                sucursalesModels, this);
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -48,5 +48,17 @@ public class activity_sucursales extends AppCompatActivity {
                     sucursalHorarios[i],
                     sucursalImagenes[i]));
         }
-    }*/
+    }
+
+    @Override
+    public void onItemClick(int position) {
+            Intent intent = new Intent(activity_sucursales.this, activity_cita.class);
+            startActivity(intent);
+    }
+
+    @Override
+    public void onItemClickUbicacion(int position) {
+        Intent intent = new Intent(activity_sucursales.this, activity_ubicacion.class);
+        startActivity(intent);
+    }
 }
