@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="#00BCD4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -14,6 +15,7 @@
         android:layout_width="195dp"
         android:layout_height="154dp"
         android:layout_marginEnd="88dp"
+        android:src="@drawable/icono_pkj"
         android:layout_marginBottom="52dp"
         android:gravity="center"
         android:scaleType="centerCrop"
@@ -50,6 +52,7 @@
             android:layout_marginBottom="20dp"
             android:fontFamily="sans-serif-smallcaps"
             android:hint="Nombre"
+            android:background="@color/white"
 
             />
 
@@ -64,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
                 android:layout_marginBottom="20dp"
+                android:background="@color/white"
                 android:fontFamily="sans-serif-smallcaps"
                 android:hint="Peso"
                 android:inputType="numberDecimal" />
@@ -79,6 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="30dp"
                     android:layout_marginBottom="20dp"
+                    android:background="@color/white"
                     android:fontFamily="sans-serif-smallcaps"
                     android:hint="Raza" />
 
@@ -103,6 +108,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"
                         android:layout_marginEnd="30dp"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
                         android:text="DD/MM/AAA"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -118,6 +125,8 @@
             android:layout_gravity="start"
             android:layout_marginStart="40dp"
             android:fontFamily="sans-serif-smallcaps"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:text="Sexo"
             android:textSize="25sp" />
 
@@ -136,7 +145,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-smallcaps"
                 android:text="Macho"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <RadioButton
@@ -145,23 +154,23 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-smallcaps"
                 android:text="Hembra"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
         </RadioGroup>
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_cam"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="176dp"
-        android:backgroundTint="#2196F3"
+        android:layout_width="88dp"
+        android:layout_height="71dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="136dp"
+        android:backgroundTint="#00FAF8F8"
         android:fontFamily="sans-serif-smallcaps"
-        android:text="Agregar Foto"
-        android:textStyle="bold"
+        android:scaleType="centerCrop"
+        android:src="@drawable/agregar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

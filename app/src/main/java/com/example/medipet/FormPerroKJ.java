@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -20,7 +21,7 @@ public class FormPerroKJ extends AppCompatActivity {
 
     EditText txt_fecha;
     Button btn_fecha;
-    Button foto;
+    ImageButton foto;
     ImageView visor;
 
     private int dia, mes, anio;
@@ -34,7 +35,7 @@ public class FormPerroKJ extends AppCompatActivity {
         txt_fecha = (EditText) findViewById(R.id.txt_fecha);
         btn_fecha = (Button) findViewById(R.id.btn_fecha);
         visor = (ImageView) findViewById(R.id.iv_visor);
-        foto = (Button) findViewById(R.id.btn_cam);
+        foto = (ImageButton) findViewById(R.id.btn_cam);
         btn_fecha.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick (View v){

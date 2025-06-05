@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 // Asumo que tus clases Fragment están en un subpaquete 'fragments'
 // Ajusta las importaciones si están en otro lugar.
@@ -43,8 +42,7 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main); // Asegúrate que este es el layout correcto
-
+        setContentView(R.layout.activity_inicio); // Asegúrate que este es el layout correcto
         btn_perro = findViewById(R.id.btn_perro);
         btn_gato = findViewById(R.id.btn_gato);
 
