@@ -1,5 +1,6 @@
 package com.example.medipet;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -22,20 +24,39 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.medipet.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
-    Button btnIngresar;
+    ImageView img_perfil,img_citas,img_agregar;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        btnIngresar = findViewById(R.id.btncambio);
-        btnIngresar.setOnClickListener(new View.OnClickListener() {
+        img_agregar = findViewById(R.id.img_agregar);
+        img_agregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //AQUIIIIIIII CAMBIEN LA ACTIVITY--------------------------->AQUI
-                Intent intent = new Intent(MainActivity.this, activity_sucursales.class);
+
+                Intent intent = new Intent(MainActivity.this, MainActivityKJ.class);
+                startActivity(intent);
+            }
+        });
+        img_perfil = findViewById(R.id.img_perfil);
+        img_perfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, MainActivityDA.class);
+                startActivity(intent);
+            }
+        });
+        img_citas = findViewById(R.id.img_citas);
+        img_citas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, activity_cita.class);
                 startActivity(intent);
             }
         });
