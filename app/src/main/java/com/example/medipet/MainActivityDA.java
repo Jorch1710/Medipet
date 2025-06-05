@@ -3,32 +3,31 @@ package com.example.medipet;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-/*
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.button.MaterialButton;
-*/
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivityDA extends AppCompatActivity {
 
- /*  MaterialButton btnCreate, btnRegistrarse;
+    MaterialButton btnCreate, btnRegistrarse;
     EditText editEmail, editPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_da);
+        setContentView(R.layout.activity_main_da); // Asegúrate de que este archivo existe
 
         btnCreate = findViewById(R.id.btnCreate);
         btnRegistrarse = findViewById(R.id.btnregistro);
@@ -55,14 +54,14 @@ public class MainActivityDA extends AppCompatActivity {
         String email = editEmail.getText().toString().trim();
         String password = editPassword.getText().toString().trim();
 
-        Log.d("LOGIN", "Email: " + email + " | Password: " + password);  // 🔍 Verifica contenido
+        Log.d("LOGIN", "Email: " + email + " | Password: " + password);
 
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        String url = "http://192.168.0.6/android/login.php"; // Asegúrate que esta IP sea accesible desde tu dispositivo
+        String url = "http://192.168.0.6/android/login.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 response -> {
@@ -93,5 +92,5 @@ public class MainActivityDA extends AppCompatActivity {
 
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(stringRequest);
-    }*/
+    }
 }
