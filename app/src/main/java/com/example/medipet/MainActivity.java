@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //AQUIIIIIIII CAMBIEN LA ACTIVITY--------------------------->AQUI
-                Intent intent = new Intent(MainActivity.this, MainActivity2DA.class);
+                Intent intent = new Intent(MainActivity.this, activity_sucursales.class);
                 startActivity(intent);
             }
         });

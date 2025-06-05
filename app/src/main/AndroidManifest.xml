@@ -20,6 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MediPet"
         tools:targetApi="31">
+        <activity android:name=".Inicio"
+            android:exported="false"/>
         <activity
             android:name=".activity_ubicacion"
             android:exported="false" />

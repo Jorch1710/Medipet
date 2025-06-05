@@ -1,6 +1,5 @@
 package com.example.medipet;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
+// Descomenta si vas a usar Volley
 /*
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -22,23 +23,31 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 */
-public class MainActivity2DA extends AppCompatActivity/* implements View.OnClickListener */{
+
+public class MainActivity2DA extends AppCompatActivity /*implements View.OnClickListener*/ {
+
     EditText txtNom, txtApe, txtMail, txtTel, txtPass;
     Button btnCreate;
-    /*RequestQueue requestQueue;*/
-    /*
-    private static final String URL1 = "http://192.168.0.6/android/saves.php";
+
+    // Descomenta si usas Volley
+    // RequestQueue requestQueue;
+    // private static final String URL1 = "http://192.168.0.6/android/saves.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+
+        // Asegúrate de que este layout exista y esté bien hecho
         setContentView(R.layout.activity_main_activity2_da);
 
-        requestQueue = Volley.newRequestQueue(this);
+        // Descomenta si usas Volley
+        // requestQueue = Volley.newRequestQueue(this);
 
-        initUI(); // inicializamos las vistas
-        btnCreate.setOnClickListener(this); // ya no es null
+        initUI();
+
+        // Descomenta si implementas View.OnClickListener
+        // btnCreate.setOnClickListener(this);
     }
 
     private void initUI() {
@@ -50,6 +59,8 @@ public class MainActivity2DA extends AppCompatActivity/* implements View.OnClick
         btnCreate = findViewById(R.id.btnCreate);
     }
 
+    // Si usas View.OnClickListener, descomenta este bloque
+    /*
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -96,9 +107,8 @@ public class MainActivity2DA extends AppCompatActivity/* implements View.OnClick
                 return params;
             }
         };
+
         requestQueue.add(stringRequest);
-
-
-    }*/
-
+    }
+    */
 }
