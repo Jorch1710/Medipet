@@ -24,7 +24,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.medipet.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
-    ImageView img_perfil,img_citas,img_agregar;
+    ImageView img_perfil,img_citas,img_agregar,img_per;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -56,10 +56,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity.this, activity_cita.class);
+                Intent intent = new Intent(MainActivity.this, activity_sucursales.class);
                 startActivity(intent);
             }
         });
+
+        img_per = findViewById(R.id.img_per);
+        img_per.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, Menu.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
