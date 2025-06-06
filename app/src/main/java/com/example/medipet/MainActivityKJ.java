@@ -2,65 +2,52 @@ package com.example.medipet;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.medipet.DBHelper;
+import com.example.medipet.Mascota;
+import com.example.medipet.MascotaAdapter;
+import com.example.medipet.R;
+
+import java.util.List;
 
 public class MainActivityKJ extends AppCompatActivity {
-ImageView mas;
 
-    ImageView img_perfil,img_citas,img_home,img_per;
+    private RecyclerView recyclerView;
+    private MascotaAdapter adapter;
+    private List<Mascota> listaMascotas;
+    private DBHelper dbHelper;  // Asegúrate de tener tu helper
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main_kj);
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_IMMERSIVE
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
-        img_home = findViewById(R.id.img_home);
-        img_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(MainActivityKJ.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-        img_perfil = findViewById(R.id.img_perfil);
-        img_perfil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(MainActivityKJ.this, MainActivityDA.class);
-                startActivity(intent);
-            }
-        });
-        img_citas = findViewById(R.id.img_citas);
-        img_citas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(MainActivityKJ.this, activity_cita.class);
-                startActivity(intent);
-            }
+        recyclerView = findViewById(R.id.recyclerViewMascotas); // Usa el ID real
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ImageView imgMas = findViewById(R.id.img_mas);
+        imgMas.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivityKJ.this, FormPerroKJ.class);
+            startActivity(intent);
         });
 
 
-        mas=(ImageView) findViewById(R.id.img_mas);
-        mas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intene=new Intent(MainActivityKJ.this,FormPerroKJ.class);
-                startActivity(intene);
-            }
+        dbHelper = new DBHelper(this);
+        listaMascotas = dbHelper.obtenerTodasMascotas();
+
+        adapter = new MascotaAdapter(listaMascotas, posicion -> {
+            Mascota mascota = listaMascotas.get(posicion);
+            dbHelper.eliminarMascota(mascota.getId());  // Eliminar de BD
+            listaMascotas.remove(posicion);              // Eliminar de la lista
+            adapter.notifyItemRemoved(posicion);         // Notificar al RecyclerView
+            Toast.makeText(this, "Mascota eliminada", Toast.LENGTH_SHORT).show();
         });
+
+        recyclerView.setAdapter(adapter);
     }
 }
