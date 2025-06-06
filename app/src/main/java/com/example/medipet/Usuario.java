@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -24,11 +25,9 @@ import androidx.core.content.ContextCompat;
 
 
 public class Usuario extends AppCompatActivity {
-
+    TextView txtNombreUsuario;
     private ActivityResultLauncher<Intent> imagePickerLauncher;
     private ImageView img_editar, img_foto;
-
-
     private static final int PERMISSION_REQUEST_CODE_READ_STORAGE = 101;
     private static final int PERMISSION_REQUEST_CODE_READ_MEDIA_IMAGES = 102;
 
@@ -37,11 +36,17 @@ public class Usuario extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_usuario);
-
-
-
         img_editar = findViewById(R.id.img_editar);
         img_foto = findViewById(R.id.img_foto);
+        txtNombreUsuario = findViewById(R.id.txtNombreUsuario);
+
+        // Recuperar datos enviados
+        String nombreUsuario = getIntent().getStringExtra("nombre");
+        if (nombreUsuario != null && !nombreUsuario.isEmpty()) {
+            txtNombreUsuario.setText(nombreUsuario);
+        } else {
+            txtNombreUsuario.setText("Incognito");
+        }
 
         imagePickerLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),

@@ -18,6 +18,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.button.MaterialButton;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -95,26 +98,35 @@ public class MainActivityDA extends AppCompatActivity {
             return;
         }
 
-        String url = "http://192.168.0.6/android/login.php";
+        String url = "http://192.168.0.7/android/login.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 response -> {
-                    Log.d("LOGIN", "Respuesta del servidor: " + response);
-                    if (response.trim().equals("success")) {
-                        Toast.makeText(MainActivityDA.this, "Login exitoso", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainActivityDA.this, MainActivity2DA.class);
-                        intent.putExtra("email", email);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(MainActivityDA.this, "Email o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response.trim());
+                        String status = jsonResponse.getString("status");
+
+                        if (status.equals("success")) {
+                            String nombreUsuario = jsonResponse.getString("nombre");
+                            Toast.makeText(MainActivityDA.this, "Login exitoso", Toast.LENGTH_SHORT).show();
+
+                            Intent intent = new Intent(MainActivityDA.this, Usuario.class);
+                            intent.putExtra("email", email);
+                            intent.putExtra("nombre", nombreUsuario);  // Pasamos el nombre
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            String message = jsonResponse.getString("message");
+                            Toast.makeText(MainActivityDA.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(MainActivityDA.this, "Error parseando respuesta", Toast.LENGTH_SHORT).show();
                     }
                 },
                 error -> {
-                    Log.e("LOGIN", "Error de red: " + error.getMessage());
                     Toast.makeText(MainActivityDA.this, "Error de red: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                 }) {
-
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
@@ -123,6 +135,7 @@ public class MainActivityDA extends AppCompatActivity {
                 return params;
             }
         };
+
 
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(stringRequest);
