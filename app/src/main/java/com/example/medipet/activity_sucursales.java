@@ -30,7 +30,10 @@ public class activity_sucursales extends AppCompatActivity implements RecyclerVi
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sucursales);
-
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
         img_home = findViewById(R.id.img_home);
         img_home.setOnClickListener(new View.OnClickListener() {

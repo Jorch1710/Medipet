@@ -4,8 +4,14 @@
     package="com.example.medipet">
 
     <uses-feature
-        android:name="android.hardware.camara"
-        android:required="true" />
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
 
     <application
         android:allowBackup="true"
@@ -18,6 +24,15 @@
         android:theme="@style/Theme.MediPet"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".Mascota"
+            android:exported="false" />
+        <activity
+            android:name=".item_mascota_card"
+            android:exported="false" />
+        <activity
+            android:name=".item_mascota"
+            android:exported="false" />
         <activity
             android:name=".Menu"
             android:exported="false" />

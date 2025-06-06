@@ -47,7 +47,9 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation (libs.circleimageview)
-    implementation("com.google.android.material:material:1.12.0")
+    implementation(libs.material)
+    implementation (libs.cardview)
+
 
 
 }
