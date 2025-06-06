@@ -49,10 +49,10 @@ public class AA_RecyclerViewAdapterSucursales extends RecyclerView.Adapter<AA_Re
     @Override
     public void onBindViewHolder(@NonNull AA_RecyclerViewAdapterSucursales.MyViewHolder holder, int position) {
 
-        holder.tvNombre.setText(sucursalesModels.get(position).getSucursalNombre());
-        holder.tvDireccion.setText(sucursalesModels.get(position).getSucursalDireccion());
-        holder.tvHorario.setText(sucursalesModels.get(position).getSucursalHorario());
-        holder.imageView.setImageResource(sucursalesModels.get(position).getSucursalImagen());
+        holder.tvNombre.setText(sucursalesModels.get(position).getNombre());
+        holder.tvDireccion.setText(sucursalesModels.get(position).getDireccion());
+        holder.tvHorario.setText(sucursalesModels.get(position).getHorario());
+        holder.imageView.setImageResource(sucursalesModels.get(position).getImagen());
 
     }
 

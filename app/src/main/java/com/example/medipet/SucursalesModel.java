@@ -3,46 +3,69 @@ package com.example.medipet;
 import java.time.LocalTime;
 
 public class SucursalesModel {
+    private String nombre;
+    private String direccion;
+    private String horario;
+    private int imagen;
+    private LocalTime horaApertura;
+    private LocalTime horaCierre;
 
-    String sucursalNombre;
-    String sucursalDireccion;
-    String sucursalHorario;
-    int sucursalImagen;
-
-    LocalTime SucursalInicioAtencion;
-    LocalTime SucursalFinAtencion;
-
-    public SucursalesModel(String sucursalNombre, String sucursalDireccion, String sucursalHorario, int sucursalImagen, LocalTime sucursalInicioAtencion, LocalTime sucursalFinAtencion) {
-        this.sucursalNombre = sucursalNombre;
-        this.sucursalDireccion = sucursalDireccion;
-        this.sucursalHorario = sucursalHorario;
-        this.sucursalImagen = sucursalImagen;
-        this.SucursalInicioAtencion=sucursalInicioAtencion;
-        this.SucursalFinAtencion=sucursalFinAtencion;
+    public SucursalesModel(String nombre, String direccion, String horario, int imagen, LocalTime horaApertura, LocalTime horaCierre) {
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.horario = horario;
+        this.imagen = imagen;
+        this.horaApertura = horaApertura;
+        this.horaCierre = horaCierre;
     }
 
-    public String getSucursalNombre() {
-        return sucursalNombre;
+    // Getters
+    public String getNombre() {
+        return nombre;
     }
 
-    public String getSucursalDireccion() {
-        return sucursalDireccion;
+    public String getDireccion() {
+        return direccion;
     }
 
-    public String getSucursalHorario() {
-        return sucursalHorario;
+    public String getHorario() {
+        return horario;
     }
 
-    public int getSucursalImagen() {
-        return sucursalImagen;
+    public int getImagen() {
+        return imagen;
     }
 
-    public LocalTime getSucursalInicioAtencion() {
-        return SucursalInicioAtencion;
+    public LocalTime getHoraApertura() {
+        return horaApertura;
     }
 
-    public LocalTime getSucursalFinAtencion() {
-        return SucursalFinAtencion;
+    public LocalTime getHoraCierre() {
+        return horaCierre;
     }
 
+    // Setters (opcional, si necesitas modificar los valores)
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
+    public void setImagen(int imagen) {
+        this.imagen = imagen;
+    }
+
+    public void setHoraApertura(LocalTime horaApertura) {
+        this.horaApertura = horaApertura;
+    }
+
+    public void setHoraCierre(LocalTime horaCierre) {
+        this.horaCierre = horaCierre;
+    }
 }

@@ -13,16 +13,17 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class activity_sucursales extends AppCompatActivity implements RecyclerViewInterfaceSucursales{
+public class activity_sucursales extends AppCompatActivity implements RecyclerViewInterfaceSucursales {
 
     ArrayList<SucursalesModel> sucursalesModels = new ArrayList<>();
 
     int[] sucursalImagenes = {R.drawable.icon_trotsky, R.drawable.icon_vitavet, R.drawable.icon_patitasfelices,
             R.drawable.icon_huellavital, R.drawable.icon_amoranimal};
 
-    ImageView img_perfil,img_agregar,img_home,img_per;
+    ImageView img_perfil, img_agregar, img_home, img_per;
 
 
     @Override
@@ -75,28 +76,38 @@ public class activity_sucursales extends AppCompatActivity implements RecyclerVi
 
     }
 
+
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(activity_sucursales.this, activity_cita.class);
+        startActivity(intent);
+    }
     private void setUpSucursalModels() {
         String[] sucursalNombres = getResources().getStringArray(R.array.sucursales_nombre_txt);
         String[] sucursalDirecciones = getResources().getStringArray(R.array.sucursales_direccion_txt);
         String[] sucursalHorarios = getResources().getStringArray(R.array.sucursales_horario_txt);
 
+        LocalTime horaApertura = LocalTime.of(9, 0); // 9:00 AM
+        LocalTime horaCierre = LocalTime.of(18, 0);  // 6:00 PM
+
         for (int i = 0; i < sucursalNombres.length; i++) {
-            sucursalesModels.add(new SucursalesModel(sucursalNombres[i],
+            sucursalesModels.add(new SucursalesModel(
+                    sucursalNombres[i],
                     sucursalDirecciones[i],
                     sucursalHorarios[i],
-                    sucursalImagenes[i]));
+                    sucursalImagenes[i],
+                    horaApertura,
+                    horaCierre
+            ));
         }
     }
 
-    @Override
-    public void onItemClick(int position) {
-            Intent intent = new Intent(activity_sucursales.this, activity_cita.class);
-            startActivity(intent);
-    }
 
     @Override
     public void onItemClickUbicacion(int position) {
         Intent intent = new Intent(activity_sucursales.this, activity_ubicacion.class);
         startActivity(intent);
     }
+
 }
