@@ -2,6 +2,9 @@ package com.example.medipet;
 
 import android.os.Bundle;
 import android.content.Intent;
+import android.view.View;
+import android.widget.ImageView;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -19,11 +22,43 @@ public class activity_sucursales extends AppCompatActivity implements RecyclerVi
     int[] sucursalImagenes = {R.drawable.icon_trotsky, R.drawable.icon_vitavet, R.drawable.icon_patitasfelices,
             R.drawable.icon_huellavital, R.drawable.icon_amoranimal};
 
+    ImageView img_perfil,img_agregar,img_home,img_per;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sucursales);
+
+
+        img_home = findViewById(R.id.img_home);
+        img_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(activity_sucursales.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        img_perfil = findViewById(R.id.img_perfil);
+        img_perfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(activity_sucursales.this, MainActivityDA.class);
+                startActivity(intent);
+            }
+        });
+        img_agregar = findViewById(R.id.img_agregar);
+        img_agregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(activity_sucursales.this, activity_cita.class);
+                startActivity(intent);
+            }
+        });
 
         RecyclerView recyclerView = findViewById(R.id.mRecyclerView);
 

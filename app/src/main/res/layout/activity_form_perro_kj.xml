@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="#00BCD4"
+    android:background="@drawable/vtkj"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".FormPerroKJ">
-
-
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_visor"
         android:layout_width="195dp"
         android:layout_height="154dp"
-        android:layout_marginEnd="88dp"
-        android:src="@drawable/icono_pkj"
-        android:layout_marginBottom="52dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="48dp"
         android:gravity="center"
         android:scaleType="centerCrop"
+        android:src="@drawable/icono_pkj"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -41,6 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
         app:endIconMode="clear_text"
+        app:boxBackgroundMode="outline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3">
 
@@ -59,6 +61,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:boxBackgroundMode="outline"
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -75,6 +78,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="163dp"
+                app:boxBackgroundMode="outline"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -88,7 +92,7 @@
                     android:hint="Raza" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="378dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
@@ -102,16 +106,26 @@
                         android:text="Fecha Nacimineto"
                         android:textStyle="bold" />
 
-                    <EditText
-                        android:id="@+id/txt_fecha"
-                        android:layout_width="160dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="112dp"
+                        android:layout_height="55dp"
+                        android:layout_marginStart="20dp"
                         android:layout_marginEnd="30dp"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        android:text="DD/MM/AAA"
-                        android:textSize="18sp" />
+                        app:cardCornerRadius="40dp">
+
+                        <EditText
+                            android:id="@+id/txt_fecha"
+                            android:layout_width="162dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginEnd="3dp"
+                            android:text="DD/MM/AAA"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                    </androidx.cardview.widget.CardView>
+
                 </LinearLayout>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -130,48 +144,108 @@
             android:text="Sexo"
             android:textSize="25sp" />
 
-        <RadioGroup
-            android:layout_width="333dp"
+        <androidx.cardview.widget.CardView
+            android:layout_width="336dp"
+            android:layout_height="42dp"
+            android:layout_gravity="center"
+            app:cardCornerRadius="20dp">
+
+            <RadioGroup
+                android:layout_width="341dp"
+                android:layout_height="61dp"
+                android:layout_gravity="start"
+                android:layout_marginStart="40dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
+
+
+                <RadioButton
+                    android:id="@+id/radioButton"
+                    android:layout_width="146dp"
+                    android:layout_height="20dp"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:text="Macho"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="142dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:text="Hembra"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+            </RadioGroup>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="20dp"
+            android:text="Tamaño de la Mascota"
+            android:layout_marginStart="25dp"
+            android:textColor="@color/white"
+            android:textSize="25sp"
 
+            />
 
-            <RadioButton
-                android:id="@+id/radioButton"
-                android:layout_width="146dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-smallcaps"
-                android:text="Macho"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+        <androidx.cardview.widget.CardView
+            android:layout_width="336dp"
+            android:layout_gravity="center"
+            app:cardCornerRadius="20dp"
+            android:layout_height="match_parent" >
 
-            <RadioButton
-                android:id="@+id/radioButton2"
-                android:layout_width="142dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-smallcaps"
-                android:text="Hembra"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-        </RadioGroup>
+            <Spinner
+                android:id="@+id/spinner_opciones"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="60dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="1dp"
+                android:background="@color/white"
+                android:spinnerMode="dialog"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.cardview.widget.CardView>
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <ImageButton
+        <Button
+            android:id="@+id/button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="112dp"
+            android:layout_weight="1"
+            android:backgroundTint="#2196F3"
+            android:gravity="center"
+            android:text="Guardar"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+        <ImageButton
         android:id="@+id/btn_cam"
         android:layout_width="88dp"
         android:layout_height="71dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="152dp"
         android:backgroundTint="#00FAF8F8"
         android:fontFamily="sans-serif-smallcaps"
         android:scaleType="centerCrop"
         android:src="@drawable/agregar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

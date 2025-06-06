@@ -6,11 +6,15 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,11 +35,22 @@ public class FormPerroKJ extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_form_perro_kj);
-
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+        Spinner spinnerOpciones = findViewById(R.id.spinner_opciones);
         txt_fecha = (EditText) findViewById(R.id.txt_fecha);
         btn_fecha = (Button) findViewById(R.id.btn_fecha);
         visor = (ImageView) findViewById(R.id.iv_visor);
         foto = (ImageButton) findViewById(R.id.btn_cam);
+        String[] opciones = {"Grande", "Mediano", "Pequeño"};
+
+        // Adaptador
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, opciones);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerOpciones.setAdapter(adapter);
+
         btn_fecha.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick (View v){

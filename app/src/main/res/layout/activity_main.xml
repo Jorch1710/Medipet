@@ -300,7 +300,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_gravity="bottom"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="#3F51B5"
 
             app:fabCradleMargin="8dp"
             app:fabCradleRoundedCornerRadius="50dp"

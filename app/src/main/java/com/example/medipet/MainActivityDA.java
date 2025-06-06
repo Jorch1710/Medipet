@@ -3,9 +3,11 @@ package com.example.medipet;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +25,8 @@ public class MainActivityDA extends AppCompatActivity {
 
     MaterialButton btnCreate, btnRegistrarse;
     EditText editEmail, editPassword;
+
+    ImageView img_citas,img_agregar,img_home,img_per;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,36 @@ public class MainActivityDA extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
             }, rotateAnim.getDuration());
         });
+
+
+        img_home = findViewById(R.id.img_home);
+        img_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivityDA.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        img_citas = findViewById(R.id.img_citas);
+        img_citas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivityDA.this, activity_sucursales.class);
+                startActivity(intent);
+            }
+        });
+        img_agregar = findViewById(R.id.img_agregar);
+        img_agregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivityDA.this, activity_cita.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void loginUser() {
