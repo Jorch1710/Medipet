@@ -1,0 +1,4 @@
+<!-- Incorrect usage that might cause the error -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <!-- ... other attributes and child elements for the dialog ... -->
+</shape>

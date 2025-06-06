@@ -15,8 +15,7 @@
         android:background="#3F51B5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toTopOf="parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_per"
@@ -40,51 +39,45 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/img_per"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mRecyclerView"
-        android:layout_width="413dp"
-        android:layout_height="505dp"
-        android:paddingTop="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="60dp"
         android:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="match_parent"
             android:layout_gravity="bottom"
             android:backgroundTint="#3F51B5"
-
             app:fabCradleMargin="8dp"
             app:fabCradleRoundedCornerRadius="50dp"
-            app:fabCradleVerticalOffset="6dp"
-
-            >
+            app:fabCradleVerticalOffset="6dp">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:background="#3F51B5"
-                android:backgroundTint="#3F51B5"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -181,12 +174,7 @@
                         android:textColor="@color/white" />
 
                 </LinearLayout>
-
             </LinearLayout>
         </com.google.android.material.bottomappbar.BottomAppBar>
-
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
