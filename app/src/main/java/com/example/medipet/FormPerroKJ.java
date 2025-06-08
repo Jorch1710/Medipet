@@ -150,9 +150,11 @@ public class FormPerroKJ extends AppCompatActivity {
 
             byte[] imagenEnBytes = null;
             if (imagenBitmap != null) {
+                Bitmap bitmapReducido = escalarBitmap(imagenBitmap, 500, 500);
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                imagenBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                bitmapReducido.compress(Bitmap.CompressFormat.JPEG, 80, stream);
                 imagenEnBytes = stream.toByteArray();
+
             }
 
             DBHelper dbHelper = new DBHelper(this);
@@ -210,4 +212,18 @@ public class FormPerroKJ extends AppCompatActivity {
             Toast.makeText(this, "Permiso denegado", Toast.LENGTH_SHORT).show();
         }
     }
+    private Bitmap escalarBitmap(Bitmap bitmapOriginal, int maxAncho, int maxAlto) {
+        int ancho = bitmapOriginal.getWidth();
+        int alto = bitmapOriginal.getHeight();
+
+        float ratio = Math.min(
+                (float) maxAncho / ancho,
+                (float) maxAlto / alto);
+
+        int nuevoAncho = Math.round(ancho * ratio);
+        int nuevoAlto = Math.round(alto * ratio);
+
+        return Bitmap.createScaledBitmap(bitmapOriginal, nuevoAncho, nuevoAlto, true);
+    }
+
 }
