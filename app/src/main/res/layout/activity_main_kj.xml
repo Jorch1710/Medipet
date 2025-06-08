@@ -42,13 +42,13 @@
     <!-- CONTENIDO SCROLLEABLE -->
     <ScrollView
         android:id="@+id/contenido_scroll"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="405dp"
+        android:layout_height="571dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@id/header_layout"
         app:layout_constraintBottom_toTopOf="@+id/menu_layout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/header_layout">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,33 +56,85 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="241dp"
+                android:layout_height="181dp"
+                android:layout_gravity="center">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_visor"
+                    android:layout_width="195dp"
+                    android:layout_height="154dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="4dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/usuariokk"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/btn_cam"
+                    android:layout_width="74dp"
+                    android:layout_height="73dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="4dp"
+                    android:backgroundTint="#00FAF8F8"
+                    android:contentDescription="."
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/agregar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/txt_nomus"
+                android:layout_width="202dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:text="Nombre" />
+
+            <TextView
+                android:id="@+id/txt_telus"
+                android:layout_width="204dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:text="Telefono" />
+
+            <TextView
+                android:id="@+id/txt_emus"
+                android:layout_width="202dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:text="Email" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewMascotas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                android:clipToPadding="false" />
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="24dp"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/img_mas"
-                    android:layout_width="119dp"
-                    android:layout_height="72dp"
+                    android:layout_width="100dp"
+                    android:layout_height="38dp"
                     android:src="@drawable/mas" />
 
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:text="AGREGAR MASCOTAS"
-                    android:textSize="18sp"
-                    android:layout_marginStart="8dp" />
+                    android:textSize="18sp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
@@ -90,11 +142,11 @@
     <!-- BOTTOM MENU FIJO -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/menu_layout"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_width="412dp"
+        android:layout_height="62dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/app_bar"
@@ -109,16 +161,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:background="#3F51B5">
+                android:background="#3F51B5"
+                android:orientation="horizontal">
 
                 <!-- Home -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.25"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/img_home"
@@ -132,8 +184,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Home"
-                        android:textColor="@android:color/white"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
 
                 <!-- Agregar -->
@@ -141,8 +193,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.25"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/img_agregar"
@@ -156,8 +208,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Agregar"
-                        android:textColor="@android:color/white"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
 
                 <!-- Perfil -->
@@ -165,8 +217,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.25"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/img_perfil"
@@ -180,8 +232,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Perfil"
-                        android:textColor="@android:color/white"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
 
                 <!-- Citas -->
@@ -189,8 +241,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.25"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/img_mascota"
@@ -204,8 +256,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Citas"
-                        android:textColor="@android:color/white"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.bottomappbar.BottomAppBar>
