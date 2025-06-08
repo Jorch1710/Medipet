@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="176dp"
     android:gravity="bottom"
-    android:padding="16dp"
+    android:padding="10dp"
     android:background="@drawable/cuadro_arriba"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
