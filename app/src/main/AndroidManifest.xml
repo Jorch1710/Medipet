@@ -39,7 +39,7 @@
             android:name=".activity_ubicacion"
             android:exported="false" />
         <activity
-            android:name=".activity_cita"
+            android:name=".activity_dialog_cita"
             android:exported="false" />
         <activity
             android:name=".MainActivityDA"

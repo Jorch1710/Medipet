@@ -44,28 +44,4 @@ public class SucursalesModel {
         return horaCierre;
     }
 
-    // Setters (opcional, si necesitas modificar los valores)
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public void setHorario(String horario) {
-        this.horario = horario;
-    }
-
-    public void setImagen(int imagen) {
-        this.imagen = imagen;
-    }
-
-    public void setHoraApertura(LocalTime horaApertura) {
-        this.horaApertura = horaApertura;
-    }
-
-    public void setHoraCierre(LocalTime horaCierre) {
-        this.horaCierre = horaCierre;
-    }
 }

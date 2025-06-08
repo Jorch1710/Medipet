@@ -80,7 +80,7 @@ public class MainActivityDA extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivityDA.this, activity_cita.class);
+                Intent intent = new Intent(MainActivityDA.this, activity_dialog_cita.class);
                 startActivity(intent);
             }
         });
