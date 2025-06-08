@@ -52,7 +52,7 @@
         android:id="@+id/mRecyclerView"
         android:layout_width="412dp"
         android:layout_height="697dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="18dp"
         android:paddingTop="20dp"
         app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
         app:layout_constraintEnd_toEndOf="parent"

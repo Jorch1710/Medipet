@@ -8,6 +8,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import android.content.res.Resources;
+import android.net.Uri;
 import android.widget.Toast;
 import android.util.Log; // IMPORTANTE: Usar android.util.Log
 
@@ -181,7 +182,37 @@ public class activity_sucursales extends AppCompatActivity implements RecyclerVi
 
     @Override
     public void onItemClickUbicacion(int position) {
-        Intent intent = new Intent(activity_sucursales.this, activity_ubicacion.class);
-        startActivity(intent);
+        // Asegúrate de que la posición es válida para evitar errores.
+        if (position >= 0 && position < sucursalesModels.size()) {
+            SucursalesModel sucursalSeleccionada = sucursalesModels.get(position);
+            String direccion = sucursalSeleccionada.getDireccion(); // Asumo que tienes un método getDireccion() en tu SucursalesModel
+
+            // Crea un Uri para la intención de búsqueda en Google Maps.
+            // El formato "geo:0,0?q=direccion" buscará la dirección.
+            // Si tuvieras coordenadas de latitud y longitud, podrías usar "geo:lat,lng?q=nombre_lugar"
+            Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + Uri.encode(direccion));
+
+            // Crea un Intent para abrir Google Maps.
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps"); // Especifica el paquete de Google Maps para asegurar que se abra esta app.
+
+            // Verifica si hay una aplicación que pueda manejar este Intent (Google Maps en este caso).
+            if (mapIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(mapIntent);
+            } else {
+                // Si Google Maps no está instalado, puedes manejarlo aquí.
+                // Por ejemplo, mostrar un Toast o intentar abrir la ubicación en un navegador web.
+                Toast.makeText(this, "Google Maps no está instalado.", Toast.LENGTH_LONG).show();
+                // Opcional: Intenta abrir en un navegador web si Maps no está disponible
+                // Uri webUri = Uri.parse("https://maps.google.com/maps?q=" + Uri.encode(direccion));
+                // Intent webIntent = new Intent(Intent.ACTION_VIEW, webUri);
+                // if (webIntent.resolveActivity(getPackageManager()) != null) {
+                //     startActivity(webIntent);
+                // }
+            }
+        } else {
+            Toast.makeText(this, "Error al obtener la ubicación de la sucursal.", Toast.LENGTH_SHORT).show();
+            Log.e("SucursalesActivity", "Posición inválida para onItemClickUbicacion: " + position);
+        }
     }
 }
