@@ -96,7 +96,7 @@ public class Inicio extends AppCompatActivity implements NavigationView.OnNaviga
         img_perfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Inicio.this,MainActivityDA.class);
+                Intent intent = new Intent(Inicio.this,Inicio.class);
                 startActivity(intent);
             }
         });

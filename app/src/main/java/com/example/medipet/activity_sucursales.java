@@ -54,7 +54,7 @@ public class activity_sucursales extends AppCompatActivity implements RecyclerVi
         img_perfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity_sucursales.this, MainActivityDA.class);
+                Intent intent = new Intent(activity_sucursales.this, activity_sucursales.class);
                 startActivity(intent);
             }
         });
