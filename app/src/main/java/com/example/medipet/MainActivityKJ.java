@@ -19,6 +19,7 @@ import java.util.List;
 
 public class MainActivityKJ extends AppCompatActivity {
 
+
     private RecyclerView recyclerView;
     private MascotaAdapter adapter;
     private List<Mascota> listaMascotas;
