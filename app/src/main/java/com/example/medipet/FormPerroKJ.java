@@ -1,6 +1,7 @@
 package com.example.medipet;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -50,6 +51,9 @@ public class FormPerroKJ extends AppCompatActivity {
     private ActivityResultLauncher<Intent> camaraLauncher;
     private ActivityResultLauncher<Intent> galeriaLauncher;
 
+
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -169,6 +173,12 @@ public class FormPerroKJ extends AppCompatActivity {
                 Toast.makeText(this, "No hay sesión activa", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
+
+
+
     }
 
     private void verificarPermisoCamara() {

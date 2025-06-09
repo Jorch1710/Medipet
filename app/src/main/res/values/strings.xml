@@ -6,6 +6,17 @@
         <item>Grande</item>
     </string-array>
 
+    <string name="company_logo_description">Logo de la Empresa</string>
+    <string name="social_whatsapp">Contactar por WhatsApp</string>
+    <string name="social_facebook">Visitar Facebook</string>
+    <string name="social_instagram">Seguir en Instagram</string>
+    <string name="social_website">Nuestro Sitio Web</string>
+
+    <string name="copyright_text_placeholder">Copyright Placeholder</string>
+    <!-- Texto dinámico para el copyright -->
+    <string name="copyright_text">Copyright © %1$d Tu Empresa. Todos los derechos reservados.</string>
+
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
