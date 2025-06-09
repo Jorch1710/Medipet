@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -154,12 +155,19 @@ public class FormPerroKJ extends AppCompatActivity {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bitmapReducido.compress(Bitmap.CompressFormat.JPEG, 80, stream);
                 imagenEnBytes = stream.toByteArray();
-
             }
 
-            DBHelper dbHelper = new DBHelper(this);
-            dbHelper.insertarMascota(nombre, peso, raza, fecha, sexo, tamanio, imagenEnBytes);
-            finish();
+            SharedPreferences prefs = getSharedPreferences("sesion", MODE_PRIVATE);
+            String usuarioActivo = prefs.getString("usuario_activo", null);
+
+            if (usuarioActivo != null) {
+        DBHelper dbHelper = new DBHelper(this);  // ← 👈 AGREGA ESTA LÍNEA AQUÍ
+                dbHelper.insertarMascota(nombre, peso, raza, fecha, sexo, tamanio, imagenEnBytes, usuarioActivo);
+                Toast.makeText(this, "Mascota guardada para " + usuarioActivo, Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                Toast.makeText(this, "No hay sesión activa", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

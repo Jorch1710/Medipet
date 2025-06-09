@@ -124,4 +124,5 @@ public class DBHelper extends SQLiteOpenHelper {
         db.delete("mascotas", "id = ?", new String[]{String.valueOf(id)});
         db.close();
     }
+
 }

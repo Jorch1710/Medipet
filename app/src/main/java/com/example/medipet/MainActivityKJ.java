@@ -26,7 +26,7 @@ public class MainActivityKJ extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_kj);
-
+        recyclerView = findViewById(R.id.recyclerViewMascotas);
         TextView txtUsuarioNombre = findViewById(R.id.txt_nomus);
         TextView txtUsuarioTelefono = findViewById(R.id.txt_telus);
         TextView txtUsuarioCorreo = findViewById(R.id.txt_emus);
@@ -49,6 +49,8 @@ public class MainActivityKJ extends AppCompatActivity {
             cursor.close();
 
             listaMascotas = dbHelper.obtenerMascotasPorUsuario(usuarioActivo);
+            Toast.makeText(this, "Mascotas encontradas: " + listaMascotas.size(), Toast.LENGTH_SHORT).show();
+
         } else {
             txtUsuarioNombre.setText("Usuario: No disponible");
             txtUsuarioTelefono.setText("Teléfono: -");
@@ -74,4 +76,17 @@ public class MainActivityKJ extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences prefs = getSharedPreferences("sesion", MODE_PRIVATE);
+        String usuarioActivo = prefs.getString("usuario_activo", null);
+
+        if (usuarioActivo != null) {
+            listaMascotas.clear();
+            listaMascotas.addAll(dbHelper.obtenerMascotasPorUsuario(usuarioActivo));
+            adapter.notifyDataSetChanged();
+        }
+    }
+
 }
