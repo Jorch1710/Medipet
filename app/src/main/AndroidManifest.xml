@@ -32,6 +32,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Pajaro"
+            android:exported="false" />
+        <activity
+            android:name=".Gato"
+            android:exported="false" />
+        <activity
+            android:name=".Perro"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity

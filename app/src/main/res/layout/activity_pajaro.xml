@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".Pajaro"> <!-- Cambiado el context si es una nueva Activity -->
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="112dp"
+            android:background="#3F51B5"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <!-- Contenedor para alinear los elementos dentro de la Toolbar -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
+
+                <!-- Logo a la izquierda (antes era toolbar_logo) -->
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/toolbar_main_logo"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:contentDescription="Logo de la aplicación"
+                    android:src="@drawable/logo" />
+
+                <!-- Título en el centro -->
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Cuidados"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <!-- Imagen de perfil/home a la derecha (antes era imageView) -->
+
+            </RelativeLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Sección de Artículo Principal: Alojamiento Adecuado -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Alojamiento: El Hogar Ideal para tu Ave"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="8dp"
+                android:contentDescription="Jaula espaciosa y bien equipada para un ave"
+                android:scaleType="centerCrop"
+                android:src="@drawable/pajaro_1" /> <!-- CAMBIA ESTA IMAGEN -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:lineSpacingMultiplier="1.2"
+                android:text="Proporcionar una jaula o aviario adecuado es fundamental para el bienestar de tu ave. Debe ser lo suficientemente espaciosa para que pueda estirar sus alas, volar cortas distancias (si es posible) y moverse cómodamente entre perchas. Asegúrate de que los barrotes tengan el espaciado correcto para evitar escapes o lesiones."
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+            <!-- Sección de Artículos Secundarios -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:layout_marginBottom="4dp"
+                        android:contentDescription="Juguetes variados para aves"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/pajaro_2" /> <!-- CAMBIA ESTA IMAGEN -->
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="Enriquecimiento Ambiental"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:text="Las aves son inteligentes y necesitan estimulación. Ofrece juguetes variados (rotándolos), perchas de diferentes texturas y tamaños, y oportunidades para forrajear."
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:layout_marginBottom="4dp"
+                        android:contentDescription="Variedad de alimentos frescos para aves"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/pajaro_3" /> <!-- CAMBIA ESTA IMAGEN -->
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="Nutrición Específica"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:text="Cada especie de ave tiene requerimientos nutricionales específicos. Investiga y ofrece una dieta base de alta calidad complementada con frutas, verduras y otros alimentos seguros."
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Consejos Rápidos de Cuidado Diario para Aves -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="Mantenimiento Diario Esencial"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:lineSpacingMultiplier="1.3"
+                android:text="• Agua fresca y limpia: Cambiar diariamente.\n• Alimento fresco: Retirar sobras y reponer.\n• Limpieza de la jaula: Diaria para excrementos, semanal profunda.\n• Interacción y socialización: Dedica tiempo a tu ave.\n• Observación: Vigila signos de enfermedad o estrés."
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+            <!-- Nueva Sección: Salud y Bienestar Aviar -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="Salud y Bienestar Aviar"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginBottom="8dp"
+                android:contentDescription="Ave siendo revisada por un veterinario"
+                android:scaleType="centerCrop"
+                android:src="@drawable/pajaro_4" />  <!-- CAMBIA ESTA IMAGEN -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:lineSpacingMultiplier="1.2"
+                android:text="Las visitas regulares a un veterinario especializado en aves son cruciales para la detección temprana de problemas de salud. Aprende a reconocer los signos de enfermedad en tu ave, como cambios en el apetito, plumaje erizado, letargo o dificultad para respirar. Un ambiente limpio y una dieta adecuada son preventivos."
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:lineSpacingMultiplier="1.3"
+                android:text="• Chequeos veterinarios anuales (o más frecuentes si es necesario).\n• Evitar corrientes de aire y cambios bruscos de temperatura.\n• Baño regular (spray o bañera, según preferencia del ave).\n• Mantener las uñas y el pico recortados si es necesario (idealmente por un profesional)."
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

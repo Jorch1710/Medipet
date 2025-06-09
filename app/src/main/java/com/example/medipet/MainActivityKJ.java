@@ -1,10 +1,12 @@
 package com.example.medipet;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,10 +24,25 @@ public class MainActivityKJ extends AppCompatActivity {
     private List<Mascota> listaMascotas;
     private DBHelper dbHelper;
 
+
+    ImageView img_inicio;
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_kj);
+
+        img_inicio=findViewById(R.id.img_inicio);
+        img_inicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivityKJ.this, Inicio.class);
+                startActivity(intent);
+            }
+        });
+
+
         recyclerView = findViewById(R.id.recyclerViewMascotas);
         TextView txtUsuarioNombre = findViewById(R.id.txt_nomus);
         TextView txtUsuarioTelefono = findViewById(R.id.txt_telus);
@@ -75,6 +92,12 @@ public class MainActivityKJ extends AppCompatActivity {
         });
 
         recyclerView.setAdapter(adapter);
+
+
+
+
+
+
     }
     @Override
     protected void onResume() {
