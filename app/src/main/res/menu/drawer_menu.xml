@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_inicio"
+        android:icon="@drawable/home"
+        android:title="Inicio" />
+    <item
+        android:id="@+id/nav_citas"
+        android:icon="@drawable/calendario"
+        android:title="Citas" />
+    <item
+        android:id="@+id/nav_usuario"
+        android:icon="@drawable/usuario"
+        android:title="Usuario" />
+    <item
+        android:id="@+id/nav_social"
+        android:title="Redes Sociales">
+        <menu>
+            <item
+                android:id="@+id/nav_facebook"
+                android:icon="@drawable/facebook"
+                android:title="Facebook"/>
+            <item
+                android:id="@+id/nav_instagram"
+                android:icon="@drawable/instagram"
+                android:title="Instagram"/>
+            <item
+                android:id="@+id/nav_whatsapp"
+                android:icon="@drawable/whatsapp"
+                android:title="WhatsApp"/>
+        </menu>
+    </item>
+</menu>

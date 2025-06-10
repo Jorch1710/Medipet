@@ -5,15 +5,22 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
@@ -25,8 +32,7 @@ public class MainActivityKJ extends AppCompatActivity {
     private List<Mascota> listaMascotas;
     private DBHelper dbHelper;
 
-
-    ImageView img_inicio;
+    ImageView img_logo;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -34,14 +40,15 @@ public class MainActivityKJ extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_kj);
 
-        img_inicio=findViewById(R.id.img_inicio);
-        img_inicio.setOnClickListener(new View.OnClickListener() {
+        img_logo=findViewById(R.id.img_logo);
+        img_logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivityKJ.this, Inicio.class);
+                Intent intent = new Intent(MainActivityKJ.this, MainActivity.class);
                 startActivity(intent);
             }
         });
+
 
 
         recyclerView = findViewById(R.id.recyclerViewMascotas);
@@ -100,6 +107,12 @@ public class MainActivityKJ extends AppCompatActivity {
 
 
     }
+
+
+
+
+
+
     @Override
     protected void onResume() {
         super.onResume();

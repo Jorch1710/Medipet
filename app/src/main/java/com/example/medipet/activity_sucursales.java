@@ -1,14 +1,19 @@
 package com.example.medipet;
 
 // ... otros imports ...
+import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter; // IMPORTANTE: Usar java.time
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.view.MenuItem;
 import android.widget.Toast;
 import android.util.Log; // IMPORTANTE: Usar android.util.Log
 
@@ -22,6 +27,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.navigation.NavigationView;
+
 public class activity_sucursales extends AppCompatActivity implements RecyclerViewInterfaceSucursales {
 
     ArrayList<SucursalesModel> sucursalesModels = new ArrayList<>();
@@ -29,43 +36,34 @@ public class activity_sucursales extends AppCompatActivity implements RecyclerVi
     int[] sucursalImagenes = {R.drawable.icon_trotsky, R.drawable.icon_vitavet, R.drawable.icon_patitasfelices,
             R.drawable.icon_huellavital, R.drawable.icon_amoranimal};
 
-    ImageView img_perfil, img_agregar, img_home, img_per;
+ImageView img_per;
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sucursales);
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_IMMERSIVE
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
-        img_home = findViewById(R.id.img_home);
-        img_home.setOnClickListener(new View.OnClickListener() {
+
+        img_per=findViewById(R.id.img_per);
+        img_per.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(activity_sucursales.this, MainActivity.class);
                 startActivity(intent);
             }
         });
-        img_perfil = findViewById(R.id.img_perfil);
-        img_perfil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(activity_sucursales.this, activity_sucursales.class);
-                startActivity(intent);
-            }
-        });
-        img_agregar = findViewById(R.id.img_agregar);
-        img_agregar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(activity_sucursales.this, activity_dialog_cita.class);
-                startActivity(intent);
-            }
-        });
+
+
+
+
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+
 
         RecyclerView recyclerView = findViewById(R.id.mRecyclerView);
 
@@ -77,6 +75,8 @@ public class activity_sucursales extends AppCompatActivity implements RecyclerVi
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
+
+
 
     private void setUpSucursalModels() {
         String[] sucursalNombres = getResources().getStringArray(R.array.sucursales_nombre_txt);
