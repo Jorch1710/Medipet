@@ -41,8 +41,8 @@
 
         <ImageView
             android:id="@+id/img_inicio"
-            android:layout_width="52dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -111,7 +111,7 @@
                 android:id="@+id/txt_telus"
                 android:layout_width="204dp"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:fontFamily="sans-serif-black"
                 android:layout_marginStart="50dp"
                 android:text="Telefono" />
@@ -121,9 +121,8 @@
                 android:layout_width="202dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 android:fontFamily="sans-serif-black"
-                android:gravity="center"
                 android:text="Email" />
 
             <androidx.recyclerview.widget.RecyclerView

@@ -32,12 +32,20 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    packagingOptions {
+        exclude ("META-INF/NOTICE.md")
+        exclude ("META-INF/LICENSE.md")
+        exclude ("META-INF/DEPENDENCIES")
+        exclude ("META-INF/LICENSE")
+        exclude ("META-INF/NOTICE")
+    }
 }
 
 dependencies {
 
     implementation("com.airbnb.android:lottie:6.3.0")
-
+    implementation (libs.android.mail)
+    implementation (libs.android.activation)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
