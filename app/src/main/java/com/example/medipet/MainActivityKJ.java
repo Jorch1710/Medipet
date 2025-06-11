@@ -1,5 +1,6 @@
 package com.example.medipet;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -7,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,10 +35,23 @@ public class MainActivityKJ extends AppCompatActivity {
     private int currentUserId = -1;
     private String currentUserName = null;
 
+    Button btn_prueba;
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_kj);
+
+        btn_prueba = findViewById(R.id.btn_citas_pen);
+        btn_prueba.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivityKJ.this, activity_cita.class);
+                startActivity(intent);
+                }
+            });
+
 
         img_logo = findViewById(R.id.img_logo);
         img_logo.setOnClickListener(v -> {

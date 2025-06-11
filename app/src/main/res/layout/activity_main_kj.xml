@@ -160,8 +160,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#3F51B5"
-                    android:textColor="@color/white"
-                    android:text="Citas pendientes" />
+                    android:text="Citas pendientes"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
         </LinearLayout>

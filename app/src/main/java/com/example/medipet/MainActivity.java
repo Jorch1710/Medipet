@@ -29,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+
         btn_perro = findViewById(R.id.btn_perro);
         btn_perro.setOnClickListener(new View.OnClickListener() {
             @Override
