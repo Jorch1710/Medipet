@@ -31,14 +31,16 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="52dp"
             android:fontFamily="@font/oswald"
             android:text="Agregar mascota"
             android:textColor="@color/white"
             android:textSize="35dp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/img_logo"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintVertical_bias="0.481" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -147,6 +149,21 @@
                     android:text="AGREGAR MASCOTAS"
                     android:textSize="18sp" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_citas_pen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#3F51B5"
+                    android:textColor="@color/white"
+                    android:text="Citas pendientes" />
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 
