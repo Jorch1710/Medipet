@@ -8,7 +8,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="25dp"
         android:layout_marginBottom="10dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
@@ -52,11 +52,11 @@
                         android:id="@+id/txt_citasucursal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:text="Nombre Sucursal"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_gravity="center"
+                        android:text="Nombre Sucursal" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -65,19 +65,19 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/txt_txtdireccion"
+                            android:id="@+id/txt_txtmotivo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Dirección: "
-                            android:textSize="10sp"/>
+                            android:text="Motivo: "
+                            android:textSize="10sp" />
 
                         <TextView
-                            android:id="@+id/txt_sucursaldireccion"
-                            android:layout_width="match_parent"
+                            android:id="@+id/txt_citamotivo"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Dirección:"
+                            android:text="Motivo de la cita"
                             android:textSize="10sp" />
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -87,29 +87,73 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/txt_txthorario"
+                            android:id="@+id/txt_txtcitadireccion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Horario: "
+                            android:text="Dirección: "
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:id="@+id/txt_citadireccion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Dirección de la cita"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/txt_txtcitafecha"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fecha: "
                             android:textSize="10sp"/>
 
                         <TextView
-                            android:id="@+id/txt_sucursalhorario"
+                            android:id="@+id/txt_citafecha"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fecha de la cita"
+                            android:textSize="10sp"/>
+
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Horarios: "
-                            android:textSize="10sp" />
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_espaciofecha"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" - "
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/txt_citahora"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Hora de la cita"
+                                android:textSize="10sp" />
+                        </LinearLayout>
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="25dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <Button
@@ -119,7 +163,7 @@
                         android:layout_marginEnd="5dp"
                         android:layout_weight="1"
                         android:backgroundTint="#3F51B5"
-                        android:text="Agendar Cita"
+                        android:text="Ubicación"
                         app:cornerRadius="12dp" />
 
                     <Button
@@ -128,8 +172,8 @@
                         android:layout_height="48dp"
                         android:layout_marginStart="5dp"
                         android:layout_weight="1"
-                        android:backgroundTint="#3F51B5"
-                        android:text="Ubicación"
+                        android:backgroundTint="#89261D"
+                        android:text="Cancelar Cita"
                         app:cornerRadius="12dp" />
                 </LinearLayout>
             </LinearLayout>

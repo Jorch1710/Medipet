@@ -32,6 +32,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activity_cita"
+            android:exported="false" />
+        <activity
             android:name=".Pajaro"
             android:exported="false" />
         <activity

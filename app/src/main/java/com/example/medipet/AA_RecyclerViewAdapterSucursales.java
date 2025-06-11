@@ -67,13 +67,13 @@ public class AA_RecyclerViewAdapterSucursales extends RecyclerView.Adapter<AA_Re
         public MyViewHolder(@NonNull View itemView, RecyclerViewInterfaceSucursales recyclerViewInterfaceSucursales) {
             super(itemView);
 
-            imageView=itemView.findViewById(R.id.img_sucursal);
-            tvNombre=itemView.findViewById(R.id.txt_sucursalnombre);
+            imageView=itemView.findViewById(R.id.img_citasucursal);
+            tvNombre=itemView.findViewById(R.id.txt_citasucursal);
             tvDireccion=itemView.findViewById(R.id.txt_sucursaldireccion);
             tvHorario=itemView.findViewById(R.id.txt_sucursalhorario);
 
-            btn_agendar=itemView.findViewById(R.id.btn_agendar);
-            btn_ubicacion=itemView.findViewById(R.id.btn_ubicacion);
+            btn_agendar=itemView.findViewById(R.id.btn_citaubicacion);
+            btn_ubicacion=itemView.findViewById(R.id.btn_citacancelar);
 
             btn_agendar.setOnClickListener(new View.OnClickListener() {
                 @Override

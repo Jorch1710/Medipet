@@ -3,25 +3,29 @@ package com.example.medipet;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.textfield.TextInputEditText;
-// Asegúrate de que LottieAnimationView no necesite ser importado si solo se usa en XML con autoPlay.
-// Si necesitas controlarlo desde Java (ej. para iniciarla manualmente), entonces sí:
-// import com.airbnb.lottie.LottieAnimationView;
 
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -32,11 +36,16 @@ import java.util.TimeZone;
 public class CitaDialogFragment extends DialogFragment {
 
     private static final String ARG_SUCURSAL_NOMBRE = "sucursal_nombre";
+    private static final String ARG_SUCURSAL_DIRECCION = "sucursal_direccion";
+    private static final String ARG_SUCURSAL_IMAGEN_RES_ID = "sucursal_imagen_res_id";
     private static final String ARG_HORA_APERTURA = "hora_apertura";
     private static final String ARG_HORA_CIERRE = "hora_cierre";
+
     public static final String TAG = "CitaDialog";
 
     private String sucursalNombre;
+    private String sucursalDireccion;
+    private @DrawableRes int sucursalImagenResId;
     private LocalTime horaApertura;
     private LocalTime horaCierre;
 
@@ -46,13 +55,17 @@ public class CitaDialogFragment extends DialogFragment {
     private Button buttonRealizarCita;
     private TextView textViewDialogSucursalNombre;
 
+    private DBHelper dbHelper;
+
     private final Calendar myCalendar = Calendar.getInstance(TimeZone.getTimeZone("America/Mexico_City"));
     private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.US);
 
-    public static CitaDialogFragment newInstance(String nombre, LocalTime apertura, LocalTime cierre) {
+    public static CitaDialogFragment newInstance(String nombre, String direccion, @DrawableRes int imagenResId, LocalTime apertura, LocalTime cierre) {
         CitaDialogFragment fragment = new CitaDialogFragment();
         Bundle args = new Bundle();
         args.putString(ARG_SUCURSAL_NOMBRE, nombre);
+        args.putString(ARG_SUCURSAL_DIRECCION, direccion);
+        args.putInt(ARG_SUCURSAL_IMAGEN_RES_ID, imagenResId);
         if (apertura != null) {
             args.putString(ARG_HORA_APERTURA, apertura.toString());
         }
@@ -68,6 +81,8 @@ public class CitaDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             sucursalNombre = getArguments().getString(ARG_SUCURSAL_NOMBRE);
+            sucursalDireccion = getArguments().getString(ARG_SUCURSAL_DIRECCION);
+            sucursalImagenResId = getArguments().getInt(ARG_SUCURSAL_IMAGEN_RES_ID, 0);
             String aperturaStr = getArguments().getString(ARG_HORA_APERTURA);
             String cierreStr = getArguments().getString(ARG_HORA_CIERRE);
 
@@ -75,7 +90,7 @@ public class CitaDialogFragment extends DialogFragment {
                 try {
                     horaApertura = LocalTime.parse(aperturaStr);
                 } catch (Exception e) {
-                    // Log e o manejar el error como prefieras
+                    Log.e(TAG, "Error parseando horaApertura: " + aperturaStr, e);
                     horaApertura = null;
                 }
             }
@@ -83,10 +98,13 @@ public class CitaDialogFragment extends DialogFragment {
                 try {
                     horaCierre = LocalTime.parse(cierreStr);
                 } catch (Exception e) {
-                    // Log e o manejar el error como prefieras
+                    Log.e(TAG, "Error parseando horaCierre: " + cierreStr, e);
                     horaCierre = null;
                 }
             }
+        }
+        if (getContext() != null) {
+            dbHelper = new DBHelper(getContext());
         }
     }
 
@@ -106,7 +124,7 @@ public class CitaDialogFragment extends DialogFragment {
         if (sucursalNombre != null) {
             textViewDialogSucursalNombre.setText(sucursalNombre);
         } else {
-            textViewDialogSucursalNombre.setText("Seleccione Sucursal"); // O algún texto por defecto
+            textViewDialogSucursalNombre.setText("Seleccione Sucursal");
         }
 
         DatePickerDialog.OnDateSetListener dateSetListener = (view, year, monthOfYear, dayOfMonth) -> {
@@ -122,14 +140,10 @@ public class CitaDialogFragment extends DialogFragment {
                     myCalendar.get(Calendar.DAY_OF_MONTH));
 
             Calendar minDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("America/Mexico_City"));
-            minDateCalendar.set(Calendar.HOUR_OF_DAY, 0);
-            minDateCalendar.set(Calendar.MINUTE, 0);
-            minDateCalendar.set(Calendar.SECOND, 0);
-            minDateCalendar.set(Calendar.MILLISECOND, 0);
             datePickerDialog.getDatePicker().setMinDate(minDateCalendar.getTimeInMillis());
 
             Calendar maxDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("America/Mexico_City"));
-            maxDateCalendar.add(Calendar.DAY_OF_MONTH, 12); // Límite de 12 días para agendar
+            maxDateCalendar.add(Calendar.DAY_OF_MONTH, 12);
             datePickerDialog.getDatePicker().setMaxDate(maxDateCalendar.getTimeInMillis());
             datePickerDialog.show();
         });
@@ -160,9 +174,6 @@ public class CitaDialogFragment extends DialogFragment {
             }
 
             Calendar ahoraEnMexico = Calendar.getInstance(TimeZone.getTimeZone("America/Mexico_City"));
-            ahoraEnMexico.set(Calendar.SECOND, 0);
-            ahoraEnMexico.set(Calendar.MILLISECOND, 0);
-
             if (myCalendar.before(ahoraEnMexico)) {
                 Toast.makeText(getContext(), "No puede seleccionar una fecha u hora que ya pasó.", Toast.LENGTH_LONG).show();
                 return;
@@ -170,19 +181,7 @@ public class CitaDialogFragment extends DialogFragment {
 
             if (horaApertura != null && horaCierre != null) {
                 LocalTime horaElegida = LocalTime.of(myCalendar.get(Calendar.HOUR_OF_DAY), myCalendar.get(Calendar.MINUTE));
-
-                // Valida que no sea ANTES de la apertura NI DESPUÉS O IGUAL a la hora de cierre.
-                // Usamos horaCierre.minusMinutes(1) si queremos que el último slot seleccionable sea el minuto antes del cierre.
-                // O simplemente horaElegida.isAfter(horaCierre) si la hora de cierre es exclusiva.
-                // La condición original `horaElegida.isAfter(horaCierre.minusMinutes(1))` es buena para permitir hasta el último minuto.
                 if (horaElegida.isBefore(horaApertura) || horaElegida.isAfter(horaCierre.minusMinutes(1))) {
-                    // Adicionalmente, si la hora de cierre es, por ejemplo, 17:00, y eligen 17:00,
-                    // isAfter(horaCierre.minusMinutes(1)) [que sería 16:59] sería true, y estaría bien.
-                    // Pero si horaCierre es las 17:00 y eligen 17:01, isAfter(16:59) también es true.
-                    // La lógica anterior con la doble condición era un poco más compleja.
-                    // Esta simplificada debería funcionar bien si se quiere permitir citas HASTA el minuto anterior al cierre.
-                    // Si la hora de cierre es 17:00, la última cita válida sería 16:59.
-                    // Si se puede agendar A LAS 17:00, entonces la condición sería horaElegida.isAfter(horaCierre)
                     String mensajeError = "La hora seleccionada está fuera del horario de atención (" +
                             horaApertura.format(timeFormatter) + " - " +
                             horaCierre.format(timeFormatter) + ")";
@@ -190,11 +189,62 @@ public class CitaDialogFragment extends DialogFragment {
                     return;
                 }
             }
-            // Aquí iría la lógica para guardar la cita en tu backend o base de datos.
-            // Por ahora, solo mostramos el diálogo de confirmación.
 
-            showConfirmationDialog();
-            // El dismiss() del DialogFragment original se maneja ahora dentro de showConfirmationDialog
+            if (getContext() == null) {
+                Toast.makeText(requireActivity(), "Error: Contexto no disponible.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            SharedPreferences prefs = getContext().getSharedPreferences("MedipetPrefs", Context.MODE_PRIVATE);
+            int usuarioId = prefs.getInt("usuario_id", -1);
+
+            if (usuarioId == -1) {
+                Toast.makeText(getContext(), "Error: Usuario no identificado. Inicie sesión nuevamente.", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            String direccionParaGuardar = (sucursalDireccion != null) ? sucursalDireccion : "Dirección no especificada";
+
+            byte[] imagenSucursalBytes = null;
+            if (sucursalImagenResId != 0 && getContext() != null) {
+                try {
+                    Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), sucursalImagenResId);
+                    if (bitmap != null) {
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
+                        imagenSucursalBytes = stream.toByteArray();
+                        bitmap.recycle();
+                        Log.d(TAG, "Imagen convertida a byte array, tamaño: " + imagenSucursalBytes.length);
+                    } else {
+                        Log.e(TAG, "BitmapFactory.decodeResource devolvió null para resId: " + sucursalImagenResId);
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "Error convirtiendo drawable (resId: " + sucursalImagenResId + ") a byte[]", e);
+                }
+            } else if (sucursalImagenResId == 0) {
+                Log.w(TAG, "sucursalImagenResId es 0, no se intentará cargar imagen.");
+            }
+
+            if (dbHelper == null) {
+                dbHelper = new DBHelper(getContext());
+            }
+
+            boolean insercionExitosa = dbHelper.insertarCita(
+                    usuarioId,
+                    sucursalNombre,
+                    motivo,
+                    direccionParaGuardar,
+                    fecha,
+                    horaSeleccionadaTexto,
+                    imagenSucursalBytes
+            );
+
+            if (insercionExitosa) {
+                Toast.makeText(getContext(), "Cita registrada exitosamente", Toast.LENGTH_SHORT).show();
+                showConfirmationDialog();
+            } else {
+                Toast.makeText(getContext(), "Error al registrar la cita. Intente de nuevo.", Toast.LENGTH_LONG).show();
+            }
         });
 
         builder.setView(dialogView);
@@ -202,52 +252,47 @@ public class CitaDialogFragment extends DialogFragment {
     }
 
     private void showConfirmationDialog() {
-        if (getContext() == null) return; // Evita crashes si el fragmento no está adjunto
+        if (getContext() == null) return;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        // Infla tu layout que ahora contiene el LottieAnimationView
         View confirmationDialogView = inflater.inflate(R.layout.dialog_cita_confirmada, null);
-
-        // Si necesitas controlar LottieAnimationView desde Java (ej. para iniciarla manualmente si no usas autoPlay="true"):
-        // com.airbnb.lottie.LottieAnimationView lottieView = confirmationDialogView.findViewById(R.id.lottieAnimationView);
-        // lottieView.setAnimation("checkmark_animation.json"); // o R.raw.checkmark_animation si está en res/raw
-        // lottieView.playAnimation();
 
         builder.setView(confirmationDialogView);
         AlertDialog confirmationDialog = builder.create();
-        confirmationDialog.setCanceledOnTouchOutside(false); // Opcional: para que no se cierre al tocar fuera
+        confirmationDialog.setCanceledOnTouchOutside(false);
         confirmationDialog.show();
 
-        // Cierra el diálogo de confirmación y el original después de un tiempo
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             if (confirmationDialog.isShowing()) {
                 confirmationDialog.dismiss();
             }
-            // Ahora cierra el DialogFragment original
-            // Es buena práctica verificar si el diálogo aún existe y se está mostrando
             Dialog currentDialog = CitaDialogFragment.this.getDialog();
             if (currentDialog != null && currentDialog.isShowing()) {
                 CitaDialogFragment.this.dismiss();
             }
-        }, 2500); // Ajusta la duración (en ms) según la duración de tu animación Lottie (ej. 2.5 segundos)
+        }, 2500);
     }
 
     private void updateLabelDate() {
         String myFormat = "dd/MM/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        // sdf.setTimeZone(TimeZone.getTimeZone("America/Mexico_City")); // No es estrictamente necesario para el formato de fecha
         if (editTextDate != null) {
             editTextDate.setText(sdf.format(myCalendar.getTime()));
         }
     }
 
     private void updateLabelTime() {
-        String myFormat = "hh:mm a"; // formato AM/PM
+        String myFormat = "hh:mm a";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        sdf.setTimeZone(TimeZone.getTimeZone("America/Mexico_City")); // Importante para mostrar la hora correcta
+        sdf.setTimeZone(TimeZone.getTimeZone("America/Mexico_City"));
         if (editTextTime != null) {
             editTextTime.setText(sdf.format(myCalendar.getTime()));
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 }

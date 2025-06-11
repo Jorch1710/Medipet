@@ -6,7 +6,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter; // IMPORTANTE: Usar java.time
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
@@ -15,7 +15,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.view.MenuItem;
 import android.widget.Toast;
-import android.util.Log; // IMPORTANTE: Usar android.util.Log
+import android.util.Log;
 
 import android.os.Bundle;
 import android.content.Intent;
@@ -36,7 +36,7 @@ public class activity_sucursales extends AppCompatActivity implements RecyclerVi
     int[] sucursalImagenes = {R.drawable.icon_trotsky, R.drawable.icon_vitavet, R.drawable.icon_patitasfelices,
             R.drawable.icon_huellavital, R.drawable.icon_amoranimal};
 
-ImageView img_per;
+    ImageView img_per;
 
 
     @SuppressLint("MissingInflatedId")
@@ -47,7 +47,7 @@ ImageView img_per;
         setContentView(R.layout.activity_sucursales);
 
 
-        img_per=findViewById(R.id.img_per);
+        img_per = findViewById(R.id.img_per);
         img_per.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,8 +55,6 @@ ImageView img_per;
                 startActivity(intent);
             }
         });
-
-
 
 
         getWindow().getDecorView().setSystemUiVisibility(
@@ -77,7 +75,6 @@ ImageView img_per;
     }
 
 
-
     private void setUpSucursalModels() {
         String[] sucursalNombres = getResources().getStringArray(R.array.sucursales_nombre_txt);
         String[] sucursalDirecciones = getResources().getStringArray(R.array.sucursales_direccion_txt);
@@ -86,12 +83,13 @@ ImageView img_per;
         LocalTime horaAperturaDefault = LocalTime.of(9, 0);
         LocalTime horaCierreDefault = LocalTime.of(18, 0);
 
+
         for (int i = 0; i < sucursalNombres.length; i++) {
             sucursalesModels.add(new SucursalesModel(
                     sucursalNombres[i],
                     sucursalDirecciones[i],
-                    sucursalHorarios[i], // Este es el string del horario general, ej: "Abierto desde..."
-                    sucursalImagenes[i],
+                    sucursalHorarios[i],
+                    sucursalImagenes[i], // Este es el ID del drawable
                     horaAperturaDefault,
                     horaCierreDefault
             ));
@@ -101,72 +99,81 @@ ImageView img_per;
     @Override
     public void onItemClick(int position) {
         Resources res = getResources();
-        String[] nombresSucursales = res.getStringArray(R.array.sucursales_nombre_txt);
         String[] horasInicioStrArray = res.getStringArray(R.array.sucursales_inicio_atencion_txt);
         String[] horasFinStrArray = res.getStringArray(R.array.sucursales_fin_atencion_txt);
 
-        if (position >= 0 &&
-                position < nombresSucursales.length &&
+        if (position >= 0 && position < sucursalesModels.size() &&
                 position < horasInicioStrArray.length &&
                 position < horasFinStrArray.length) {
 
-            String nombreSucursal = nombresSucursales[position];
+            SucursalesModel sucursalSeleccionada = sucursalesModels.get(position);
+            String nombreSucursal = sucursalSeleccionada.getNombre();
+            String direccionSucursal = sucursalSeleccionada.getDireccion();
+            int imagenResId = sucursalSeleccionada.getImagen(); // *** OBTENER EL ID DE LA IMAGEN AQUÍ ***
+
             String horaAperturaStr = horasInicioStrArray[position];
             String horaCierreStr = horasFinStrArray[position];
+
 
             LocalTime horaApertura = null;
             LocalTime horaCierre = null;
 
-            // Usar java.time.format.DateTimeFormatter
             DateTimeFormatter parser = DateTimeFormatter.ofPattern("HH:mm");
 
             try {
                 if (horaAperturaStr != null && !horaAperturaStr.isEmpty()) {
                     if ("24:00".equals(horaAperturaStr) && "24:00".equals(horaCierreStr)) {
                         horaApertura = LocalTime.MIN;
-                        // Asegurarse de que horaCierre también se establece para este caso
-                        // ya que la condición original para horaCierre podría no cubrir esto si horaApertura ya es 24:00.
-                        // Sin embargo, la lógica de 'horaCierreStr.equals("24:00")' en el siguiente try-catch lo manejará.
                     } else if ("24:00".equals(horaAperturaStr)) {
-                        horaApertura = LocalTime.MIN; // Abrir a medianoche
+                        horaApertura = LocalTime.MIN;
                     } else {
                         horaApertura = LocalTime.parse(horaAperturaStr, parser);
                     }
                 }
             } catch (DateTimeParseException e) {
-                // Usar android.util.Log
-                Log.e("CitaApp", "Error al parsear hora de apertura: " + horaAperturaStr, e);
+                Log.e("SucursalesActivity", "Error al parsear hora de apertura: " + horaAperturaStr, e);
+                horaApertura = sucursalSeleccionada.getHoraApertura(); // Fallback
             }
 
             try {
                 if (horaCierreStr != null && !horaCierreStr.isEmpty()) {
                     if ("24:00".equals(horaCierreStr)) {
-                        // Si la sucursal cierra a las "24:00", usamos LocalTime.MAX
-                        // Esto cubre casos como "01:00" - "24:00" o cualquier horario que termine en "24:00"
                         horaCierre = LocalTime.MAX;
                     } else {
                         horaCierre = LocalTime.parse(horaCierreStr, parser);
                     }
                 }
             } catch (DateTimeParseException e) {
-                // Usar android.util.Log
-                Log.e("CitaApp", "Error al parsear hora de cierre: " + horaCierreStr, e);
+                Log.e("SucursalesActivity", "Error al parsear hora de cierre: " + horaCierreStr, e);
+                horaCierre = sucursalSeleccionada.getHoraCierre(); // Fallback
             }
 
-            // Si la apertura fue 24:00 y el cierre también fue 24:00, y se parseó como MIN y MAX
-            if (horaApertura != null && horaApertura.equals(LocalTime.MIN) &&
-                    horaCierre != null && horaCierre.equals(LocalTime.MAX) &&
-                    "24:00".equals(horaAperturaStr) && "24:00".equals(horaCierreStr) ){
-                // Este caso es especial, podría interpretarse como abierto siempre.
-                // Ya se manejó arriba poniendo MIN y MAX.
+            if (horaApertura == null) {
+                Log.w("SucursalesActivity", "Hora de apertura no pudo ser parseada para: " + nombreSucursal + ". Usando default del modelo.");
+                horaApertura = sucursalSeleccionada.getHoraApertura();
+            }
+            if (horaCierre == null) {
+                Log.w("SucursalesActivity", "Hora de cierre no pudo ser parseada para: " + nombreSucursal + ". Usando default del modelo.");
+                horaCierre = sucursalSeleccionada.getHoraCierre();
+            }
+
+            if (direccionSucursal == null) {
+                Log.w("SucursalesActivity", "La dirección de la sucursal es null para: " + nombreSucursal);
+                direccionSucursal = "Dirección no disponible";
             }
 
 
-            // Podrías añadir un log aquí para verificar los valores de horaApertura y horaCierre parseados
-            // Log.d("CitaApp", "Sucursal: " + nombreSucursal + ", Apertura: " + horaApertura + ", Cierre: " + horaCierre);
+            Log.d("SucursalesActivity", "Abriendo diálogo para: " + nombreSucursal +
+                    ", Dir: " + direccionSucursal +
+                    ", ImgResId: " + imagenResId + // Log para verificar
+                    ", Apertura: " + (horaApertura != null ? horaApertura.toString() : "N/A") +
+                    ", Cierre: " + (horaCierre != null ? horaCierre.toString() : "N/A"));
 
+            // *** CORRECCIÓN AQUÍ ***
             CitaDialogFragment citaDialog = CitaDialogFragment.newInstance(
                     nombreSucursal,
+                    direccionSucursal,
+                    imagenResId,         // Pasar el ID de la imagen como TERCER argumento
                     horaApertura,
                     horaCierre
             );
@@ -175,40 +182,31 @@ ImageView img_per;
             citaDialog.show(fragmentManager, CitaDialogFragment.TAG);
 
         } else {
-            System.err.println("Error: Posición inválida para los arrays de strings. Posición: " + position);
-            Toast.makeText(this, "Error al seleccionar la sucursal.", Toast.LENGTH_SHORT).show();
+            Log.e("SucursalesActivity", "Error: Posición inválida o datos inconsistentes. Posición: " + position);
+            Toast.makeText(this, "Error al seleccionar la sucursal o datos inconsistentes.", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void onItemClickUbicacion(int position) {
-        // Asegúrate de que la posición es válida para evitar errores.
         if (position >= 0 && position < sucursalesModels.size()) {
             SucursalesModel sucursalSeleccionada = sucursalesModels.get(position);
-            String direccion = sucursalSeleccionada.getDireccion(); // Asumo que tienes un método getDireccion() en tu SucursalesModel
+            String direccion = sucursalSeleccionada.getDireccion();
 
-            // Crea un Uri para la intención de búsqueda en Google Maps.
-            // El formato "geo:0,0?q=direccion" buscará la dirección.
-            // Si tuvieras coordenadas de latitud y longitud, podrías usar "geo:lat,lng?q=nombre_lugar"
+            if (direccion == null || direccion.trim().isEmpty()) {
+                Toast.makeText(this, "Dirección no disponible para esta sucursal.", Toast.LENGTH_SHORT).show();
+                Log.e("SucursalesActivity", "Dirección vacía para onItemClickUbicacion en posición: " + position);
+                return;
+            }
+
             Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + Uri.encode(direccion));
-
-            // Crea un Intent para abrir Google Maps.
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-            mapIntent.setPackage("com.google.android.apps.maps"); // Especifica el paquete de Google Maps para asegurar que se abra esta app.
+            mapIntent.setPackage("com.google.android.apps.maps");
 
-            // Verifica si hay una aplicación que pueda manejar este Intent (Google Maps en este caso).
             if (mapIntent.resolveActivity(getPackageManager()) != null) {
                 startActivity(mapIntent);
             } else {
-                // Si Google Maps no está instalado, puedes manejarlo aquí.
-                // Por ejemplo, mostrar un Toast o intentar abrir la ubicación en un navegador web.
                 Toast.makeText(this, "Google Maps no está instalado.", Toast.LENGTH_LONG).show();
-                // Opcional: Intenta abrir en un navegador web si Maps no está disponible
-                // Uri webUri = Uri.parse("https://maps.google.com/maps?q=" + Uri.encode(direccion));
-                // Intent webIntent = new Intent(Intent.ACTION_VIEW, webUri);
-                // if (webIntent.resolveActivity(getPackageManager()) != null) {
-                //     startActivity(webIntent);
-                // }
             }
         } else {
             Toast.makeText(this, "Error al obtener la ubicación de la sucursal.", Toast.LENGTH_SHORT).show();
