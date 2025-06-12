@@ -47,7 +47,7 @@ public class activity_sucursales extends AppCompatActivity implements RecyclerVi
         setContentView(R.layout.activity_sucursales);
 
 
-        img_per = findViewById(R.id.img_per);
+        img_per = findViewById(R.id.img_inicio_U);
         img_per.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -19,29 +19,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/img_inicio_U"
+            android:layout_width="51dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="32dp"
+            android:background="@drawable/background_inicio"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/inicio" />
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_per"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="48dp"
             android:src="@drawable/logo"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="92dp"
             android:fontFamily="@font/oswald"
             android:text="Citas"
             android:textColor="@color/white"
             android:textSize="35dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.488"
-            app:layout_constraintStart_toStartOf="@+id/img_per"
+            app:layout_constraintEnd_toStartOf="@+id/img_per"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

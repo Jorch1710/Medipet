@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
         btn_perro = findViewById(R.id.btn_perro);
         btn_perro.setOnClickListener(new View.OnClickListener() {
             @Override

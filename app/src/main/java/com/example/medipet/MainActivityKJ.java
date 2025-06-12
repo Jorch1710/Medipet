@@ -53,7 +53,7 @@ public class MainActivityKJ extends AppCompatActivity {
             });
 
 
-        img_logo = findViewById(R.id.img_logo);
+        img_logo = findViewById(R.id.img_inicio);
         img_logo.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivityKJ.this, MainActivity.class);
             startActivity(intent);
