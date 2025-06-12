@@ -3,18 +3,12 @@ package com.example.medipet;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log; // Es útil para depuración
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-// No necesitas estos imports específicos aquí si no usas directamente las clases
-// import com.example.medipet.DBHelper;
-// import com.example.medipet.MainActivityKJ;
-// import com.example.medipet.R;
-// import com.example.medipet.RegistroActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -22,12 +16,11 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin, btnIrRegistro;
     private DBHelper dbHelper;
 
-    // Define un nombre consistente para tus SharedPreferences
-    // Estas constantes pueden ser accedidas desde otras clases (ej. MainActivityKJ)
-    public static final String PREFS_NAME = "MedipetPrefs";
-    public static final String KEY_USUARIO_ID = "usuario_id";
-    public static final String KEY_USUARIO_NOMBRE = "usuario_nombre";
-
+    // Constantes para SharedPreferences
+    // Usar el mismo nombre de archivo de preferencias que en FormPerroKJ
+    public static final String PREFS_NAME = "sesion"; // CORRECCIÓN: Usar "sesion" para consistencia
+    // public static final String KEY_USUARIO_ID = "usuario_id"; // Puedes mantener esta si la usas en otro lugar
+    public static final String KEY_USUARIO_NOMBRE = "usuario_activo"; // CORRECCIÓN: Usar "usuario_activo" para consistencia
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,39 +32,39 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnIrRegistro = findViewById(R.id.btnIrARegistro);
 
-        dbHelper = new DBHelper(this); // Inicializa DBHelper
+        dbHelper = new DBHelper(this);
 
         btnLogin.setOnClickListener(v -> {
-            String nombre = edtNombre.getText().toString().trim(); // .trim() para quitar espacios
+            String nombre = edtNombre.getText().toString().trim();
             String contrasena = edtContrasena.getText().toString();
 
             if (nombre.isEmpty() || contrasena.isEmpty()) {
                 Toast.makeText(this, "Por favor, ingrese nombre y contraseña", Toast.LENGTH_SHORT).show();
-                return; // Sale del listener si los campos están vacíos
+                return;
             }
 
-            // Llama al método correcto en DBHelper que verifica y obtiene el ID del usuario
-            // Este método debe existir en tu DBHelper y devolver -1 si el usuario no es válido.
-            int usuarioId = dbHelper.obtenerIdUsuarioPorCredenciales(nombre, contrasena); // *** CORRECCIÓN AQUÍ ***
+            // Asumiendo que obtenerIdUsuarioPorCredenciales devuelve el ID si es válido, o -1 (u otro indicador de error)
+            // Y que si las credenciales son válidas, el 'nombre' es el identificador que quieres usar como 'usuario_activo'.
+            int usuarioId = dbHelper.obtenerIdUsuarioPorCredenciales(nombre, contrasena);
 
-            if (usuarioId != -1) { // Si el ID es válido (login exitoso)
-                // Guarda el ID y el nombre del usuario en SharedPreferences
+            if (usuarioId != -1) { // Login exitoso
                 SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
-                editor.putInt(KEY_USUARIO_ID, usuarioId);         // Guarda el ID numérico
-                editor.putString(KEY_USUARIO_NOMBRE, nombre);     // Guarda el nombre del usuario
+
+                // Guarda el nombre del usuario como 'usuario_activo' para ser usado en FormPerroKJ
+                editor.putString(KEY_USUARIO_NOMBRE, nombre);
+                // Si también necesitas el ID para otras partes, puedes guardarlo también:
+                // editor.putInt("usuario_id_numerico", usuarioId); // Usa una clave diferente si es necesario
                 editor.apply();
 
-                Log.d("LoginActivity", "Login exitoso. Usuario ID: " + usuarioId + ", Nombre: " + nombre); // Log para depuración
+                Log.d("LoginActivity", "Login exitoso. Usuario activo: " + nombre + ", ID: " + usuarioId);
 
-                // Inicia MainActivityKJ y cierra LoginActivity
                 Intent intent = new Intent(LoginActivity.this, MainActivityKJ.class);
                 startActivity(intent);
-                finish(); // Cierra esta actividad para que el usuario no pueda volver con el botón "atrás"
+                finish();
             } else {
-                // Usuario o contraseña incorrectos
                 Toast.makeText(this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
-                Log.w("LoginActivity", "Intento de login fallido para usuario: " + nombre); // Log para depuración
+                Log.w("LoginActivity", "Intento de login fallido para usuario: " + nombre);
             }
         });
 
