@@ -72,8 +72,8 @@ public class AA_RecyclerViewAdapterSucursales extends RecyclerView.Adapter<AA_Re
             tvDireccion=itemView.findViewById(R.id.txt_sucursaldireccion);
             tvHorario=itemView.findViewById(R.id.txt_sucursalhorario);
 
-            btn_agendar=itemView.findViewById(R.id.btn_citaubicacion);
-            btn_ubicacion=itemView.findViewById(R.id.btn_citacancelar);
+            btn_agendar=itemView.findViewById(R.id.btn_sucursalcita);
+            btn_ubicacion=itemView.findViewById(R.id.btn_sucursalubicacion);
 
             btn_agendar.setOnClickListener(new View.OnClickListener() {
                 @Override

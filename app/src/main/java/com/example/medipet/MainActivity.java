@@ -21,7 +21,7 @@ import com.google.android.material.navigation.NavigationView;
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
 
-    Button btn_perro, btn_gato, btn_pajaro, btn_prueba;
+    Button btn_perro, btn_gato, btn_pajaro;
 
     @SuppressLint("MissingInflatedId")
     @Override

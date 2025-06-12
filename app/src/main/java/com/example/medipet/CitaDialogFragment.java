@@ -240,7 +240,6 @@ public class CitaDialogFragment extends DialogFragment {
             );
 
             if (insercionExitosa) {
-                Toast.makeText(getContext(), "Cita registrada exitosamente", Toast.LENGTH_SHORT).show();
                 showConfirmationDialog();
             } else {
                 Toast.makeText(getContext(), "Error al registrar la cita. Intente de nuevo.", Toast.LENGTH_LONG).show();

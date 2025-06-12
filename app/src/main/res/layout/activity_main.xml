@@ -81,13 +81,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <Button
-                        android:id="@+id/btn_prueba"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Button" />
-
                     <androidx.cardview.widget.CardView
                         android:layout_width="100dp"
                         android:layout_height="120dp"

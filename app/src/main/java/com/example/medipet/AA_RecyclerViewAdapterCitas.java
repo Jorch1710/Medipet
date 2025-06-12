@@ -93,8 +93,8 @@ public class AA_RecyclerViewAdapterCitas extends RecyclerView.Adapter<AA_Recycle
             txtDireccion = itemView.findViewById(R.id.txt_citadireccion);
             txtFecha = itemView.findViewById(R.id.txt_citafecha);
             txtHora = itemView.findViewById(R.id.txt_citahora);
-            btnUbicacion = itemView.findViewById(R.id.btn_citaubicacion);
-            btnCancelarCita = itemView.findViewById(R.id.btn_citacancelar);
+            btnUbicacion = itemView.findViewById(R.id.btn_sucursalcita);
+            btnCancelarCita = itemView.findViewById(R.id.btn_sucursalubicacion);
         }
     }
 
