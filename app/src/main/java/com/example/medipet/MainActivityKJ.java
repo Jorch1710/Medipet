@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,10 +13,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +41,10 @@ public class MainActivityKJ extends AppCompatActivity {
 
     Button btn_prueba;
 
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private View menuIconView;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +60,7 @@ public class MainActivityKJ extends AppCompatActivity {
             }
         });
 
-        img_logo = findViewById(R.id.img_inicio);
-        img_logo.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivityKJ.this, MainActivity.class);
-            startActivity(intent);
-        });
+
 
         recyclerView = findViewById(R.id.recyclerViewMascotas);
         txtUsuarioNombre = findViewById(R.id.txt_nomus);
@@ -92,6 +96,124 @@ public class MainActivityKJ extends AppCompatActivity {
                 Toast.makeText(this, "Debe iniciar sesión para agregar mascotas", Toast.LENGTH_LONG).show();
             }
         });
+        drawerLayout = findViewById(R.id.drawer_layout_kj);
+        navigationView = findViewById(R.id.navigation_view);
+        menuIconView = findViewById(R.id.menu_icon); // Asume que tienes un View con este ID para abrir el menú
+
+        // **VERIFICACIONES DE NULIDAD**
+        if (drawerLayout == null) {
+            Log.e(TAG, "Error: DrawerLayout (R.id.drawer_layout) no encontrado.");
+            // Considera deshabilitar la funcionalidad del drawer o mostrar un error crítico
+            Toast.makeText(this, "Error al inicializar el menú lateral.", Toast.LENGTH_LONG).show();
+            // Si el drawer es esencial, podrías incluso llamar a finish();
+            return; // Salir para evitar más NullPointerExceptions
+        }
+        if (navigationView == null) {
+            Log.e(TAG, "Error: NavigationView (R.id.navigation_view) no encontrado.");
+            // La navegación por menú no funcionará
+        }
+        if (menuIconView == null) {
+            Log.e(TAG, "Error: Vista del ícono de menú (R.id.menu_icon) no encontrada.");
+            // El botón para abrir el menú no funcionará
+        }
+
+
+        // Manejo de clics en el menú (solo si navigationView no es null)
+        if (navigationView != null) {
+            navigationView.setNavigationItemSelectedListener(item -> {
+                int itemId = item.getItemId();
+
+                // Cerrar el drawer primero puede ser una mejor experiencia visual
+                // drawerLayout.closeDrawer(GravityCompat.START);
+
+                if (itemId == R.id.nav_perfil) {
+                    // Si MainActivity es tu "InicioActivity"
+                    // O usa InicioActivity.class si es diferente
+                    Toast.makeText(MainActivityKJ.this, "Ya estás en Perfil", Toast.LENGTH_SHORT).show();
+                } else if (itemId == R.id.nav_citas) {
+
+                        startActivity(new Intent(MainActivityKJ.this, activity_sucursales.class));
+
+                } else if (itemId == R.id.nav_inicio) {
+
+                        startActivity(new Intent(MainActivityKJ.this, MainActivity.class));
+
+                } else if (itemId == R.id.nav_whatsapp) {
+                    // **!!! REEMPLAZA "TU_NUMERO_CON_CODIGO_PAIS" !!!**
+                    abrirEnlace("https://wa.me/TU_NUMERO_CON_CODIGO_PAIS");
+                } else if (itemId == R.id.nav_facebook) {
+                    // **!!! REEMPLAZA "TU_PAGINA_O_PERFIL_FACEBOOK" !!!**
+                    abrirEnlace("https://www.facebook.com/TU_PAGINA_O_PERFIL_FACEBOOK");
+                } else if (itemId == R.id.nav_instagram) {
+                    // **!!! REEMPLAZA "TU_USUARIO_INSTAGRAM" !!!**
+                    abrirEnlace("https://www.instagram.com/TU_USUARIO_INSTAGRAM");
+                } else {
+                    Log.w(TAG, "ID de menú no reconocido: " + item.getTitle());
+                }
+
+                drawerLayout.closeDrawer(GravityCompat.START); // Usar gravedad explícita
+                return true; // Indicar que el evento ha sido manejado
+            });
+        }
+
+        // Abrir menú con ImageView (solo si menuIconView no es null)
+        if (menuIconView != null) {
+            menuIconView.setOnClickListener(view -> {
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                } else {
+                    drawerLayout.openDrawer(GravityCompat.START); // Usar gravedad explícita
+                }
+            });
+        }
+    }
+
+    /**
+     * Abre una URL en un navegador web o la aplicación correspondiente.
+     * Maneja posibles excepciones si no se encuentra una actividad para la URL.
+     * @param url La URL a abrir.
+     */
+    private void abrirEnlace(String url) {
+        if (url == null || url.isEmpty()) {
+            Log.e(TAG, "URL para abrirEnlace es nula o vacía.");
+            Toast.makeText(this, "No se puede abrir el enlace (URL no válida).", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        try {
+            // Verificar si hay una actividad que pueda manejar este intent
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            } else {
+                Log.w(TAG, "No se encontró ninguna aplicación para manejar la URL: " + url);
+                Toast.makeText(this, "No se encontró una aplicación para abrir este enlace.", Toast.LENGTH_SHORT).show();
+                // Opcional: Intentar abrir en Play Store si es un enlace de app específico
+                // if (url.startsWith("https://wa.me/")) { // Ejemplo para WhatsApp
+                //     Intent playStoreIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.whatsapp"));
+                //     if (playStoreIntent.resolveActivity(getPackageManager()) != null) {
+                //         startActivity(playStoreIntent);
+                //     }
+                // }
+            }
+        } catch (android.content.ActivityNotFoundException e) {
+            Log.e(TAG, "ActivityNotFoundException para URL: " + url, e);
+            Toast.makeText(this, "Error al intentar abrir el enlace (aplicación no encontrada).", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            // Captura otras posibles excepciones (ej. SecurityException)
+            Log.e(TAG, "Excepción general al abrir URL: " + url, e);
+            Toast.makeText(this, "Ocurrió un error inesperado al abrir el enlace.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    // Es buena práctica manejar el botón "Atrás" para cerrar el drawer si está abierto
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     private void cargarDatosUsuario() {

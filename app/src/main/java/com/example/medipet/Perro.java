@@ -1,128 +1,163 @@
 package com.example.medipet;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager; // O el LayoutManager que uses
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 
+// Asumiendo que tienes un adaptador para tu RecyclerView
+// import com.example.medipet.adapters.SucursalAdapter;
+// import com.example.medipet.models.Sucursal;
+// import java.util.ArrayList;
+
 public class Perro extends AppCompatActivity {
 
-    private DrawerLayout drawerLayout;
+    private static final String TAG = "Perro";
 
-    @SuppressLint("MissingInflatedId")
+    private DrawerLayout drawerLayoutPerro;
+    private NavigationView navigationViewPerro;
+    private ImageView menuIconPerro;
+
+    private RecyclerView mRecyclerViewSucursales;
+    // private SucursalAdapter sucursalAdapter;
+    // private ArrayList<Sucursal> listaSucursales;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_perro);
+        setContentView(R.layout.activity_perro); // Tu layout XML modificado
 
-        drawerLayout = findViewById(R.id.drawerPe);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        // Inicializar componentes del Drawer
+        drawerLayoutPerro = findViewById(R.id.drawer_layout_perro);
+        navigationViewPerro = findViewById(R.id.navigation_view_perro);
+        menuIconPerro = findViewById(R.id.menu_icon_perro);
 
-        if (drawerLayout == null) {
-            System.err.println("Error: R.id.drawer_layout no encontrado en R.layout.activity_main.");
+        // Inicializar RecyclerView
+
+
+        // Comprobaciones de nulidad
+        if (drawerLayoutPerro == null) {
+            Log.e(TAG, "DrawerLayout (R.id.drawer_layout_sucursales) no encontrado.");
+            // Manejar error, quizás mostrar un Toast y no continuar con la lógica del drawer
+            return;
         }
-        if (navigationView == null) {
-            System.err.println("Error: R.id.nav_view no encontrado en R.layout.activity_main.");
+        if (navigationViewPerro == null) {
+            Log.e(TAG, "NavigationView (R.id.navigation_view_sucursales) no encontrado.");
+        }
+        if (menuIconPerro == null) {
+            Log.w(TAG, "Menu Icon (R.id.menu_icon_sucursales) no encontrado.");
         }
 
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Configurar el icono de menú para abrir/cerrar el drawer
+        // (Si NO usas android:onClick="openDrawerSucursales" en el XML)
+        if (menuIconPerro != null) {
+            menuIconPerro.setOnClickListener(view -> {
+                if (drawerLayoutPerro.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayoutPerro.closeDrawer(GravityCompat.START);
+                } else {
+                    drawerLayoutPerro.openDrawer(GravityCompat.START);
+                }
+            });
+        }
+
+
+        // Configurar el listener para los items del NavigationView
+        if (drawerLayoutPerro != null) {
+            navigationViewPerro.setNavigationItemSelectedListener(item -> {
                 int itemId = item.getItemId();
+                Intent intent = null;
 
+                // Lógica similar a tu MainActivity, pero adaptada si es necesario
                 if (itemId == R.id.nav_inicio) {
-                    startActivity(new Intent(Perro.this, MainActivity.class));
+                    intent = new Intent(Perro.this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 } else if (itemId == R.id.nav_citas) {
-                    startActivity(new Intent(Perro.this, activity_sucursales.class));
-                } else if (itemId == R.id.nav_usuario) {
-                    startActivity(new Intent(Perro.this, MainActivityKJ.class));
-                } else if (itemId == R.id.nav_facebook) {
-
-                    openAppWithUri(
-                            "fb://page/ID_DE_TU_PAGINA_FACEBOOK",
-                            "com.facebook.katana",
-                            "https://www.facebook.com/ID_DE_TU_PAGINA_FACEBOOK"
-                    );
-                } else if (itemId == R.id.nav_instagram) {
-
-                    openAppWithUri(
-                            "http://instagram.com/_u/TU_USUARIO_INSTAGRAM",
-                            "com.instagram.android",
-                            "http://instagram.com/TU_USUARIO_INSTAGRAM"
-                    );
+                    // Ya estás en la actividad de citas/sucursales
+                    intent = new Intent(Perro.this, activity_sucursales.class);
+                } else if (itemId == R.id.nav_perfil) {
+                    intent = new Intent(Perro.this, MainActivityKJ.class);
                 } else if (itemId == R.id.nav_whatsapp) {
-                    // Reemplaza "TU_NUMERO_WHATSAPP_CON_CODIGO_PAIS" (ej: 521XXXXXXXXXX para México)
-                    openAppWithUri(
-                            "https://wa.me/TU_NUMERO_WHATSAPP_CON_CODIGO_PAIS",
-                            "com.whatsapp",
-                            "https://wa.me/TU_NUMERO_WHATSAPP_CON_CODIGO_PAIS"
-                    );
+                    abrirEnlace("https://wa.me/TUNUMERODEWHATSAPPCONCODIGOPAIS");
+                } else if (itemId == R.id.nav_facebook) {
+                    abrirEnlace("https://www.facebook.com/TUPAGINAFACEBOOK");
+                } else if (itemId == R.id.nav_instagram) {
+                    abrirEnlace("https://www.instagram.com/TUPERFILINSTAGRAM");
+                } else {
+                    return false; // Item no manejado
                 }
 
-                drawerLayout.closeDrawer(GravityCompat.START);
+                if (intent != null) {
+                    startActivity(intent);
+                }
+
+                drawerLayoutPerro.closeDrawer(GravityCompat.START);
                 return true;
-            }
-        });
-
-
+            });
+        }
     }
-    private void openAppWithUri(String appSpecificUri, String packageName, String webFallbackUri) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(appSpecificUri));
 
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        } else {
+    // Si usaste android:onClick="openDrawerSucursales" en el ImageView del menú
+    public void openDrawerSucursales(View view) {
+        if (drawerLayoutPerro != null && !drawerLayoutPerro.isDrawerOpen(GravityCompat.START)) {
+            drawerLayoutPerro.openDrawer(GravityCompat.START);
+        }
+    }
 
-            Intent launchIntent = getPackageManager().getLaunchIntentForPackage(packageName);
-            if (launchIntent != null && !appSpecificUri.equals(webFallbackUri)) {
-                try {
-                    startActivity(launchIntent);
-                } catch (Exception e) {
-                    openWebFallback(webFallbackUri, packageName);
-                }
+    private void abrirEnlace(String url) {
+        // (Reutiliza el método abrirEnlace que ya tienes en MainActivity,
+        // asegurándote de reemplazar los placeholders con datos reales)
+        if (url == null || url.isEmpty() ||
+                url.contains("TUNUMERODEWHATSAPPCONCODIGOPAIS") ||
+                url.contains("TUPAGINAFACEBOOK") ||
+                url.contains("TUPERFILINSTAGRAM")) {
+            Toast.makeText(this, "Enlace no configurado.", Toast.LENGTH_LONG).show();
+            Log.w(TAG, "Intento de abrir enlace no configurado o con placeholder: " + url);
+            return;
+        }
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
             } else {
-
-                openWebFallback(webFallbackUri, packageName);
+                Toast.makeText(this, "No se encontró app para abrir este enlace.", Toast.LENGTH_SHORT).show();
             }
+        } catch (Exception e) {
+            Log.e(TAG, "Error al abrir enlace: " + url, e);
+            Toast.makeText(this, "Error al abrir enlace.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void openWebFallback(String webFallbackUri, String packageName) {
-        Intent browserIntent;
-        if (webFallbackUri != null && !webFallbackUri.isEmpty()) {
-            browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(webFallbackUri));
-        } else {
-            // Fallback al Play Store si no hay URL web específica
-            browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + packageName));
+    /*
+    private void setupRecyclerView() {
+        if (mRecyclerViewSucursales == null) {
+            Log.e(TAG, "RecyclerView (mRecyclerView_sucursales) no encontrado.");
+            return;
         }
-
-        if (browserIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(browserIntent);
-        } else {
-            Toast.makeText(this, "No se pudo abrir el enlace ni encontrar la app.", Toast.LENGTH_SHORT).show();
-        }
+        listaSucursales = new ArrayList<>();
+        // ... Carga tus datos en listaSucursales ...
+        // sucursalAdapter = new SucursalAdapter(this, listaSucursales);
+        // mRecyclerViewSucursales.setLayoutManager(new LinearLayoutManager(this));
+        // mRecyclerViewSucursales.setAdapter(sucursalAdapter);
     }
-
+    */
 
     @Override
     public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
+        if (drawerLayoutPerro != null && drawerLayoutPerro.isDrawerOpen(GravityCompat.START)) {
+            drawerLayoutPerro.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }

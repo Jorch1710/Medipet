@@ -9,7 +9,7 @@
         android:icon="@drawable/calendario"
         android:title="Citas" />
     <item
-        android:id="@+id/nav_usuario"
+        android:id="@+id/nav_perfil"
         android:icon="@drawable/usuario"
         android:title="Usuario" />
     <item

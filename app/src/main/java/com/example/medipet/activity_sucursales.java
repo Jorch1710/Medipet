@@ -31,13 +31,17 @@ import com.google.android.material.navigation.NavigationView;
 
 public class activity_sucursales extends AppCompatActivity implements RecyclerViewInterfaceSucursales {
 
+    private static final String TAG = "activity_sucursales";
+
     ArrayList<SucursalesModel> sucursalesModels = new ArrayList<>();
 
     int[] sucursalImagenes = {R.drawable.icon_trotsky, R.drawable.icon_vitavet, R.drawable.icon_patitasfelices,
             R.drawable.icon_huellavital, R.drawable.icon_amoranimal};
 
-    ImageView img_per;
 
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private ImageView menuIcon;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -47,14 +51,7 @@ public class activity_sucursales extends AppCompatActivity implements RecyclerVi
         setContentView(R.layout.activity_sucursales);
 
 
-        img_per = findViewById(R.id.img_inicio_U);
-        img_per.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(activity_sucursales.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
+
 
 
         getWindow().getDecorView().setSystemUiVisibility(
@@ -63,7 +60,7 @@ public class activity_sucursales extends AppCompatActivity implements RecyclerVi
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
 
-        RecyclerView recyclerView = findViewById(R.id.mRecyclerView);
+        RecyclerView recyclerView = findViewById(R.id.mRecyclerView_sucursales);
 
         setUpSucursalModels();
 
@@ -72,6 +69,105 @@ public class activity_sucursales extends AppCompatActivity implements RecyclerVi
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        drawerLayout = findViewById(R.id.drawer_layout_sucursales);
+        navigationView = findViewById(R.id.navigation_view_sucursales); // Asegúrate que el ID es correcto
+        menuIcon = findViewById(R.id.menu_icon_sucursales);       // Asegúrate que el ID es correcto
+
+        // Comprobaciones de nulidad para componentes del Drawer
+        if (drawerLayout == null) {
+            Log.e(TAG, "DrawerLayout (R.id.drawer_layout) no encontrado. Verifica el ID en tu XML.");
+            // Considera mostrar un Toast o terminar la actividad si es crítico
+            Toast.makeText(this, "Error: Componente de layout faltante (Drawer).", Toast.LENGTH_LONG).show();
+            // finish(); // Podrías cerrar la app si el drawer es esencial
+            return; // Salir de onCreate si el drawerLayout es nulo
+        }
+        if (navigationView == null) {
+            Log.e(TAG, "NavigationView (R.id.navigation_view_main) no encontrado. Verifica el ID en tu XML.");
+            Toast.makeText(this, "Error: Componente de layout faltante (Navigation).", Toast.LENGTH_LONG).show();
+            // No necesariamente hay que hacer return, el drawer podría funcionar parcialmente
+        }
+        if (menuIcon == null) {
+            Log.w(TAG, "Menu Icon (R.id.menu_icon_main) no encontrado. Verifica el ID en tu XML.");
+            // El drawer no se podrá abrir con el icono, pero sí por gesto de swipe
+        }
+
+        // Listener para el icono de menú
+        if (menuIcon != null && navigationView != null) { // Asegurarse que navigationView no es null también
+            menuIcon.setOnClickListener(view -> {
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                } else {
+                    drawerLayout.openDrawer(GravityCompat.START);
+                }
+            });
+        }
+
+        // Listener para los items del NavigationView
+        if (navigationView != null) { // Solo configurar si navigationView no es nulo
+            navigationView.setNavigationItemSelectedListener(item -> {
+                int itemId = item.getItemId();
+                Intent intent = null;
+
+                if (itemId == R.id.nav_citas) {
+                    // Si MainActivity es la pantalla de inicio, no hacer nada o refrescar.
+                    Toast.makeText(activity_sucursales.this, "Ya estás en Citas", Toast.LENGTH_SHORT).show();
+                } else if (itemId == R.id.nav_inicio) {
+                    intent = new Intent(activity_sucursales.this, MainActivity.class);
+                } else if (itemId == R.id.nav_perfil) {
+                    intent = new Intent(activity_sucursales.this, MainActivityKJ.class);
+                } else if (itemId == R.id.nav_whatsapp) {
+                    abrirEnlace("https://wa.me/TUNUMERODEWHATSAPPCONCODIGOPAIS"); // Reemplazar con datos reales
+                } else if (itemId == R.id.nav_facebook) {
+                    abrirEnlace("https://www.facebook.com/TUPAGINAFACEBOOK");    // Reemplazar con datos reales
+                } else if (itemId == R.id.nav_instagram) {
+                    abrirEnlace("https://www.instagram.com/TUPERFILINSTAGRAM"); // Reemplazar con datos reales
+                } else {
+                    // Opción de menú no reconocida
+                    return false; // El evento no fue manejado
+                }
+
+                if (intent != null) {
+                    startActivity(intent);
+                }
+
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true; // El evento fue manejado
+            });
+        }
+    }
+
+    private void abrirEnlace(String url) {
+        if (url == null || url.isEmpty() ||
+                url.equals("https://wa.me/") || url.contains("TUNUMERODEWHATSAPPCONCODIGOPAIS") || // Comprobar si aún es el placeholder
+                url.equals("https://www.facebook.com/") || url.contains("TUPAGINAFACEBOOK") ||      // Comprobar si aún es el placeholder
+                url.equals("https://www.instagram.com/") || url.contains("TUPERFILINSTAGRAM")) {  // Comprobar si aún es el placeholder
+            Toast.makeText(this, "Enlace no configurado correctamente.", Toast.LENGTH_LONG).show();
+            Log.w(TAG, "Intento de abrir enlace no configurado o con placeholder: " + url);
+            return;
+        }
+
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "No se encontró una aplicación para abrir este enlace.", Toast.LENGTH_SHORT).show();
+                Log.w(TAG, "No hay actividad para manejar el enlace: " + url);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error al intentar abrir enlace: " + url, e);
+            Toast.makeText(this, "Error al abrir enlace.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Asegurarse de que drawerLayout no es null antes de acceder a sus métodos
+        if (drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
 

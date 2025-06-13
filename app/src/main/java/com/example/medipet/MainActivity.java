@@ -2,26 +2,33 @@ package com.example.medipet;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-// Asegúrate de que este import está presente
 import android.net.Uri;
-// ... otros imports que ya tenías ...
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
+// import android.view.MenuItem; // No se está usando directamente, se puede quitar si no se planea usar
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+// import androidx.annotation.NonNull; // No se está usando directamente en un parámetro, se puede quitar
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    private DrawerLayout drawerLayout;
 
-    Button btn_perro, btn_gato, btn_pajaro;
+
+    private static final String TAG = "MainActivity";
+
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private ImageView menuIcon;
+
+
+    Button btnPerro, btnGato, btnPajaro;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -30,128 +37,140 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+        btnPerro = findViewById(R.id.btn_perro);
+        if (btnPerro != null) {
+            btnPerro.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent perroIntent = new Intent(MainActivity.this, Perro.class);
+                    startActivity(perroIntent);
+                }
+            });
+        } else {
+            Log.w(TAG, "Botón 'btn_perro_action' no encontrado.");
+        }
 
-        btn_perro = findViewById(R.id.btn_perro);
-        btn_perro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent perro = new Intent(MainActivity.this, Perro.class);
-                startActivity(perro);
-            }
-        });
+        btnGato = findViewById(R.id.btn_gato);
+        if (btnGato != null) {
+            btnGato.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent gatoIntent = new Intent(MainActivity.this, Gato.class);
+                    startActivity(gatoIntent);
+                }
+            });
+        } else {
+            Log.w(TAG, "Botón 'btn_gato_action' no encontrado.");
+        }
 
-        btn_gato = findViewById(R.id.btn_gato);
-        btn_gato.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent gato = new Intent(MainActivity.this, Gato.class);
-                startActivity(gato);
-            }
-        });
+        btnPajaro = findViewById(R.id.btn_pajaro);
+        if (btnPajaro != null) {
+            btnPajaro.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent pajaroIntent = new Intent(MainActivity.this, Pajaro.class);
+                    startActivity(pajaroIntent);
+                }
+            });
+        } else {
+            Log.w(TAG, "Botón 'btn_pajaro_action' no encontrado.");
+        }
 
-        btn_pajaro = findViewById(R.id.btn_pajaro);
-        btn_pajaro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent paj = new Intent(MainActivity.this, Pajaro.class);
-                startActivity(paj);
-            }
-        });
+
 
         drawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.navigation_view_main);
+        menuIcon = findViewById(R.id.menu_icon_main);
 
         if (drawerLayout == null) {
-            // Es mejor usar Log.e para errores
-            Log.e("MainActivity", "Error: R.id.drawer_layout no encontrado en R.layout.activity_main.");
+            Log.e(TAG, "DrawerLayout (R.id.drawer_layout) no encontrado. Verifica el ID en tu XML.");
+
+            Toast.makeText(this, "Error: Componente de layout faltante (Drawer).", Toast.LENGTH_LONG).show();
+
+            return;
         }
         if (navigationView == null) {
-            Log.e("MainActivity", "Error: R.id.nav_view no encontrado en R.layout.activity_main.");
-        } else {
-            navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    int itemId = item.getItemId();
+            Log.e(TAG, "NavigationView (R.id.navigation_view_main) no encontrado. Verifica el ID en tu XML.");
+            Toast.makeText(this, "Error: Componente de layout faltante (Navigation).", Toast.LENGTH_LONG).show();
 
-                    if (itemId == R.id.nav_inicio) {
-                        // Opcional: Evitar reiniciar la misma actividad
-                        // if (!(MainActivity.this.getClass().getSimpleName().equals("MainActivity"))) {
-                        startActivity(new Intent(MainActivity.this, MainActivity.class));
-                        // }
-                    } else if (itemId == R.id.nav_citas) {
-                        startActivity(new Intent(MainActivity.this, activity_sucursales.class));
-                    } else if (itemId == R.id.nav_usuario) {
-                        startActivity(new Intent(MainActivity.this, MainActivityKJ.class));
-                    } else if (itemId == R.id.nav_facebook) {
-                        openAppWithUri(
-                                "fb://page/ID_DE_TU_PAGINA_FACEBOOK",
-                                "com.facebook.katana",
-                                "https://www.facebook.com/ID_DE_TU_PAGINA_FACEBOOK"
-                        );
-                    } else if (itemId == R.id.nav_instagram) {
-                        openAppWithUri(
-                                "http://instagram.com/_u/TU_USUARIO_INSTAGRAM",
-                                "com.instagram.android",
-                                "http://instagram.com/TU_USUARIO_INSTAGRAM"
-                        );
-                    } else if (itemId == R.id.nav_whatsapp) {
-                        openAppWithUri(
-                                "https://wa.me/TU_NUMERO_WHATSAPP_CON_CODIGO_PAIS",
-                                "com.whatsapp",
-                                "https://wa.me/TU_NUMERO_WHATSAPP_CON_CODIGO_PAIS"
-                        );
-                    }
+        }
+        if (menuIcon == null) {
+            Log.w(TAG, "Menu Icon (R.id.menu_icon_main) no encontrado. Verifica el ID en tu XML.");
 
-                    if (drawerLayout != null) { // Siempre verifica si es null antes de usar
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                    }
-                    return true;
+        }
+
+
+        if (menuIcon != null && navigationView != null) {
+            menuIcon.setOnClickListener(view -> {
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                } else {
+                    drawerLayout.openDrawer(GravityCompat.START);
                 }
+            });
+        }
+
+
+        if (navigationView != null) {
+            navigationView.setNavigationItemSelectedListener(item -> {
+                int itemId = item.getItemId();
+                Intent intent = null;
+
+                if (itemId == R.id.nav_inicio) {
+
+                    Toast.makeText(MainActivity.this, "Ya estás en Inicio", Toast.LENGTH_SHORT).show();
+                } else if (itemId == R.id.nav_citas) {
+                    intent = new Intent(MainActivity.this, activity_sucursales.class);
+                } else if (itemId == R.id.nav_perfil) {
+                    intent = new Intent(MainActivity.this, MainActivityKJ.class);
+                } else if (itemId == R.id.nav_whatsapp) {
+                    abrirEnlace("https://wa.me/TUNUMERODEWHATSAPPCONCODIGOPAIS");
+                } else if (itemId == R.id.nav_facebook) {
+                    abrirEnlace("https://www.facebook.com/TUPAGINAFACEBOOK");
+                } else if (itemId == R.id.nav_instagram) {
+                    abrirEnlace("https://www.instagram.com/TUPERFILINSTAGRAM");
+                } else {
+
+                    return false;
+                }
+
+                if (intent != null) {
+                    startActivity(intent);
+                }
+
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
             });
         }
     }
 
-    private void openAppWithUri(String appSpecificUri, String packageName, String webFallbackUri) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(appSpecificUri)); // Uri.parse necesita android.net.Uri
+    private void abrirEnlace(String url) {
+        if (url == null || url.isEmpty() ||
+                url.equals("https://wa.me/") || url.contains("TUNUMERODEWHATSAPPCONCODIGOPAIS") ||
+                url.equals("https://www.facebook.com/") || url.contains("TUPAGINAFACEBOOK") ||
+                url.equals("https://www.instagram.com/") || url.contains("TUPERFILINSTAGRAM")) {
+            Toast.makeText(this, "Enlace no configurado correctamente.", Toast.LENGTH_LONG).show();
+            Log.w(TAG, "Intento de abrir enlace no configurado o con placeholder: " + url);
+            return;
+        }
 
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        } else {
-            Intent launchIntent = getPackageManager().getLaunchIntentForPackage(packageName);
-            // Simplificado: si la app está instalada, intenta abrirla. Si no, fallback.
-            if (launchIntent != null) {
-                try {
-                    startActivity(launchIntent);
-                } catch (Exception e) {
-                    Log.e("MainActivity", "Excepción al abrir " + packageName + " directamente.", e);
-                    openWebFallback(webFallbackUri, packageName);
-                }
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
             } else {
-                openWebFallback(webFallbackUri, packageName);
+                Toast.makeText(this, "No se encontró una aplicación para abrir este enlace.", Toast.LENGTH_SHORT).show();
+                Log.w(TAG, "No hay actividad para manejar el enlace: " + url);
             }
-        }
-    }
-
-    private void openWebFallback(String webFallbackUri, String packageName) {
-        Intent browserIntent;
-        // Verifica que webFallbackUri no sea null, no esté vacío y no sea un placeholder
-        if (webFallbackUri != null && !webFallbackUri.isEmpty() && !webFallbackUri.contains("TU_")) {
-            browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(webFallbackUri)); // Uri.parse necesita android.net.Uri
-        } else {
-            browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + packageName)); // Uri.parse
-        }
-
-        if (browserIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(browserIntent);
-        } else {
-            Toast.makeText(this, "No se pudo abrir el enlace ni encontrar la app.", Toast.LENGTH_SHORT).show();
-            Log.e("MainActivity", "No se pudo resolver el intent para web fallback o Play Store para " + packageName);
+        } catch (Exception e) {
+            Log.e(TAG, "Error al intentar abrir enlace: " + url, e);
+            Toast.makeText(this, "Error al abrir enlace.", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void onBackPressed() {
-        // Verifica si drawerLayout no es null antes de usarlo
+
         if (drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {

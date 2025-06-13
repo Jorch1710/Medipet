@@ -4,125 +4,145 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager; // O el LayoutManager que uses
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 
+// Asumiendo que tienes un adaptador para tu RecyclerView
+// import com.example.medipet.adapters.SucursalAdapter;
+// import com.example.medipet.models.Sucursal;
+// import java.util.ArrayList;
+
 public class Gato extends AppCompatActivity {
 
-    private DrawerLayout drawerLayout;
+    private static final String TAG = "Gato";
+
+    private DrawerLayout drawerLayoutPerro;
+    private NavigationView navigationViewPerro;
+    private ImageView menuIconPerro;
+
+
+
+
+
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_gato);
 
-        drawerLayout = findViewById(R.id.drawerG);
-        NavigationView navigationView = findViewById(R.id.nav_view);
 
-        if (drawerLayout == null) {
-            System.err.println("Error: R.id.drawer_layout no encontrado en R.layout.activity_main.");
+        drawerLayoutPerro = findViewById(R.id.drawer_layout_gato);
+        navigationViewPerro = findViewById(R.id.navigation_view_gato);
+        menuIconPerro = findViewById(R.id.menu_icon_gato);
+
+
+        if (drawerLayoutPerro == null) {
+            Log.e(TAG, "DrawerLayout (R.id.drawer_layout_sucursales) no encontrado.");
+
+            return;
         }
-        if (navigationView == null) {
-            System.err.println("Error: R.id.nav_view no encontrado en R.layout.activity_main.");
+        if (navigationViewPerro == null) {
+            Log.e(TAG, "NavigationView (R.id.navigation_view_sucursales) no encontrado.");
+        }
+        if (menuIconPerro == null) {
+            Log.w(TAG, "Menu Icon (R.id.menu_icon_sucursales) no encontrado.");
         }
 
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        if (menuIconPerro != null) {
+            menuIconPerro.setOnClickListener(view -> {
+                if (drawerLayoutPerro.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayoutPerro.closeDrawer(GravityCompat.START);
+                } else {
+                    drawerLayoutPerro.openDrawer(GravityCompat.START);
+                }
+            });
+        }
+
+
+
+        if (drawerLayoutPerro != null) {
+            navigationViewPerro.setNavigationItemSelectedListener(item -> {
                 int itemId = item.getItemId();
+                Intent intent = null;
+
 
                 if (itemId == R.id.nav_inicio) {
-                    startActivity(new Intent(Gato.this, MainActivity.class));
+                    intent = new Intent(Gato.this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 } else if (itemId == R.id.nav_citas) {
-                    startActivity(new Intent(Gato.this, activity_sucursales.class));
-                } else if (itemId == R.id.nav_usuario) {
-                    startActivity(new Intent(Gato.this, MainActivityKJ.class));
-                } else if (itemId == R.id.nav_facebook) {
 
-                    openAppWithUri(
-                            "fb://page/ID_DE_TU_PAGINA_FACEBOOK",
-                            "com.facebook.katana",
-                            "https://www.facebook.com/ID_DE_TU_PAGINA_FACEBOOK"
-                    );
-                } else if (itemId == R.id.nav_instagram) {
-
-                    openAppWithUri(
-                            "http://instagram.com/_u/TU_USUARIO_INSTAGRAM",
-                            "com.instagram.android",
-                            "http://instagram.com/TU_USUARIO_INSTAGRAM"
-                    );
+                    intent = new Intent(Gato.this, activity_sucursales.class);
+                } else if (itemId == R.id.nav_perfil) {
+                    intent = new Intent(Gato.this, MainActivityKJ.class);
                 } else if (itemId == R.id.nav_whatsapp) {
-                    // Reemplaza "TU_NUMERO_WHATSAPP_CON_CODIGO_PAIS" (ej: 521XXXXXXXXXX para México)
-                    openAppWithUri(
-                            "https://wa.me/TU_NUMERO_WHATSAPP_CON_CODIGO_PAIS",
-                            "com.whatsapp",
-                            "https://wa.me/TU_NUMERO_WHATSAPP_CON_CODIGO_PAIS"
-                    );
+                    abrirEnlace("https://wa.me/TUNUMERODEWHATSAPPCONCODIGOPAIS");
+                } else if (itemId == R.id.nav_facebook) {
+                    abrirEnlace("https://www.facebook.com/TUPAGINAFACEBOOK");
+                } else if (itemId == R.id.nav_instagram) {
+                    abrirEnlace("https://www.instagram.com/TUPERFILINSTAGRAM");
+                } else {
+                    return false;
                 }
 
-                drawerLayout.closeDrawer(GravityCompat.START);
+                if (intent != null) {
+                    startActivity(intent);
+                }
+
+                drawerLayoutPerro.closeDrawer(GravityCompat.START);
                 return true;
-            }
-        });
-
-
+            });
+        }
     }
-    private void openAppWithUri(String appSpecificUri, String packageName, String webFallbackUri) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(appSpecificUri));
 
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        } else {
 
-            Intent launchIntent = getPackageManager().getLaunchIntentForPackage(packageName);
-            if (launchIntent != null && !appSpecificUri.equals(webFallbackUri)) {
-                try {
-                    startActivity(launchIntent);
-                } catch (Exception e) {
-                    openWebFallback(webFallbackUri, packageName);
-                }
+    public void openDrawerSucursales(View view) {
+        if (drawerLayoutPerro != null && !drawerLayoutPerro.isDrawerOpen(GravityCompat.START)) {
+            drawerLayoutPerro.openDrawer(GravityCompat.START);
+        }
+    }
+
+    private void abrirEnlace(String url) {
+
+        if (url == null || url.isEmpty() ||
+                url.contains("TUNUMERODEWHATSAPPCONCODIGOPAIS") ||
+                url.contains("TUPAGINAFACEBOOK") ||
+                url.contains("TUPERFILINSTAGRAM")) {
+            Toast.makeText(this, "Enlace no configurado.", Toast.LENGTH_LONG).show();
+            Log.w(TAG, "Intento de abrir enlace no configurado o con placeholder: " + url);
+            return;
+        }
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
             } else {
-
-                openWebFallback(webFallbackUri, packageName);
+                Toast.makeText(this, "No se encontró app para abrir este enlace.", Toast.LENGTH_SHORT).show();
             }
+        } catch (Exception e) {
+            Log.e(TAG, "Error al abrir enlace: " + url, e);
+            Toast.makeText(this, "Error al abrir enlace.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void openWebFallback(String webFallbackUri, String packageName) {
-        Intent browserIntent;
-        if (webFallbackUri != null && !webFallbackUri.isEmpty()) {
-            browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(webFallbackUri));
-        } else {
-            // Fallback al Play Store si no hay URL web específica
-            browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + packageName));
-        }
-
-        if (browserIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(browserIntent);
-        } else {
-            Toast.makeText(this, "No se pudo abrir el enlace ni encontrar la app.", Toast.LENGTH_SHORT).show();
-        }
-    }
 
 
     @Override
     public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
+        if (drawerLayoutPerro != null && drawerLayoutPerro.isDrawerOpen(GravityCompat.START)) {
+            drawerLayoutPerro.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
